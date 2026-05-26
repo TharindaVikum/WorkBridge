@@ -1,0 +1,2526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WorkBridge — Assignment & Web Development Services</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --white: #FFFFFF;
+  --black: #0A0A0A;
+  --gray-50: #FAFAFA;
+  --gray-100: #F4F4F5;
+  --gray-200: #E4E4E7;
+  --gray-300: #D1D5DB;
+  --gray-400: #9CA3AF;
+  --gray-500: #6B7280;
+  --gray-600: #4B5563;
+  --gray-700: #374151;
+  --gray-900: #111827;
+  --danger: #DC2626;
+  --danger-bg: #FEF2F2;
+  --warn: #B45309;
+  --warn-bg: #FFFBEB;
+  --success: #065F46;
+  --success-bg: #ECFDF5;
+  --radius-sm: 8px;
+  --radius: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --shadow-xs: 0 1px 2px rgba(0,0,0,0.05);
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow: 0 4px 6px -1px rgba(0,0,0,0.07), 0 2px 4px -2px rgba(0,0,0,0.05);
+  --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.08), 0 4px 6px -4px rgba(0,0,0,0.04);
+  --shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.08), 0 8px 10px -6px rgba(0,0,0,0.04);
+}
+
+/* ── BASE ── */
+html { scroll-behavior: smooth; }
+body { font-family: 'Geist', -apple-system, sans-serif; background: var(--white); color: var(--black); min-height: 100vh; line-height: 1.6; font-size: 15px; -webkit-font-smoothing: antialiased; }
+.serif { font-family: 'Instrument Serif', Georgia, serif; }
+a { color: var(--black); text-decoration: none; }
+button { font-family: 'Geist', sans-serif; cursor: pointer; }
+::selection { background: var(--black); color: var(--white); }
+
+/* ── PAGES ── */
+.page { display: none; animation: pageIn .2s ease; }
+.page.active { display: block; }
+@keyframes pageIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+/* ── NAV ── */
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--gray-200);
+  height: 58px; padding: 0 2rem;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.nav-brand {
+  font-family: 'Instrument Serif', serif;
+  font-size: 19px; color: var(--black);
+  cursor: pointer; letter-spacing: -0.3px;
+}
+.nav-brand span { color: var(--gray-500); }
+.nav-links { display: flex; align-items: center; gap: 4px; }
+.nav-btn {
+  background: none; border: none; padding: 7px 14px;
+  border-radius: var(--radius-sm); font-size: 13.5px;
+  color: var(--gray-500); transition: all .18s; font-weight: 500;
+}
+.nav-btn:hover { background: var(--gray-100); color: var(--black); }
+.nav-user { display: flex; align-items: center; gap: 10px; }
+.avatar {
+  width: 30px; height: 30px; border-radius: 50%;
+  background: var(--black); color: var(--white);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 600; letter-spacing: .03em;
+}
+
+/* ── BUTTONS ── */
+.btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 9px 18px; border-radius: var(--radius-sm);
+  font-size: 13.5px; font-weight: 500;
+  border: 1px solid var(--gray-200);
+  background: var(--white); color: var(--black);
+  transition: all .18s ease; cursor: pointer;
+  white-space: nowrap;
+}
+.btn:hover { background: var(--gray-50); border-color: var(--gray-300); transform: translateY(-1px); box-shadow: var(--shadow-sm); }
+.btn:active { transform: translateY(0); box-shadow: none; }
+.btn-primary {
+  background: var(--black); color: var(--white);
+  border-color: var(--black);
+}
+.btn-primary:hover { background: var(--gray-900); border-color: var(--gray-900); }
+.btn-sm { padding: 6px 12px; font-size: 12.5px; border-radius: 7px; }
+.btn-lg { padding: 12px 24px; font-size: 14.5px; border-radius: var(--radius); }
+.btn-danger { color: var(--danger); border-color: rgba(220,38,38,0.2); }
+.btn-danger:hover { background: var(--danger-bg); border-color: rgba(220,38,38,0.3); }
+.btn-success { color: var(--success); border-color: rgba(6,95,70,0.2); }
+.btn-success:hover { background: var(--success-bg); border-color: rgba(6,95,70,0.3); }
+.btn-outline { background: transparent; border: 1.5px solid var(--black); color: var(--black); }
+.btn-outline:hover { background: var(--black); color: var(--white); }
+
+/* ── CARDS ── */
+.card {
+  background: var(--white); border: 1px solid var(--gray-200);
+  border-radius: var(--radius-lg); padding: 1.5rem;
+  box-shadow: var(--shadow-xs);
+}
+.card + .card { margin-top: 1rem; }
+
+/* ── FORMS ── */
+.form-group { margin-bottom: 1.1rem; }
+label {
+  display: block; font-size: 12.5px; font-weight: 500;
+  color: var(--gray-600); margin-bottom: 5px; letter-spacing: .02em;
+}
+input, select, textarea {
+  width: 100%; padding: 9px 12px;
+  border: 1px solid var(--gray-200); border-radius: var(--radius-sm);
+  font-size: 14px; font-family: 'Geist', sans-serif;
+  background: var(--white); color: var(--black);
+  outline: none; transition: border .15s, box-shadow .15s;
+}
+input:focus, select:focus, textarea:focus {
+  border-color: var(--black);
+  box-shadow: 0 0 0 3px rgba(0,0,0,0.06);
+}
+input::placeholder, textarea::placeholder { color: var(--gray-400); }
+textarea { resize: vertical; min-height: 88px; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.form-error { font-size: 12px; color: var(--danger); margin-top: 4px; display: none; }
+.form-error.show { display: block; }
+
+/* ── BADGE ── */
+.badge {
+  display: inline-block; padding: 3px 9px;
+  border-radius: 20px; font-size: 11px; font-weight: 600;
+  letter-spacing: .04em; text-transform: uppercase;
+}
+.badge-pending { background: var(--warn-bg); color: var(--warn); }
+.badge-accepted { background: var(--gray-100); color: var(--gray-700); }
+.badge-declined { background: var(--danger-bg); color: var(--danger); }
+.badge-completed { background: var(--gray-900); color: var(--white); }
+.badge-delivered { background: var(--black); color: var(--white); }
+.badge-awaitingpayment { background: var(--warn-bg); color: var(--warn); }
+.badge-receiptsubmitted { background: #FEF3C7; color: #92400E; }
+.badge-paymentverified { background: var(--success-bg); color: var(--success); }
+
+/* ── LAYOUT ── */
+.container { max-width: 1000px; margin: 0 auto; padding: 3rem 2rem; }
+.section-title { font-family: 'Instrument Serif', serif; font-size: 28px; margin-bottom: .25rem; letter-spacing: -.4px; }
+.section-sub { font-size: 14px; color: var(--gray-500); margin-bottom: 2rem; }
+.divider { height: 1px; background: var(--gray-200); margin: 1.25rem 0; }
+
+/* ── AUTH ── */
+.auth-wrap {
+  min-height: calc(100vh - 58px);
+  display: flex; align-items: center; justify-content: center;
+  padding: 2rem; background: var(--gray-50);
+  position: relative; overflow: hidden;
+}
+.auth-wrap::before {
+  content: ''; position: absolute; inset: 0;
+  background-image: radial-gradient(circle at 1px 1px, rgba(0,0,0,0.06) 1px, transparent 0);
+  background-size: 28px 28px;
+}
+.auth-card {
+  background: var(--white); border: 1px solid var(--gray-200);
+  border-radius: var(--radius-xl); padding: 2.5rem;
+  width: 100%; max-width: 420px;
+  box-shadow: var(--shadow-xl);
+  position: relative; z-index: 1;
+}
+.auth-logo {
+  font-family: 'Instrument Serif', serif;
+  font-size: 22px; color: var(--black);
+  margin-bottom: 1.5rem; display: block;
+}
+.auth-title { font-family: 'Instrument Serif', serif; font-size: 24px; margin-bottom: .3rem; }
+.auth-sub { font-size: 13.5px; color: var(--gray-500); margin-bottom: 1.75rem; }
+
+/* ── TABS ── */
+.tabs {
+  display: flex; gap: 0;
+  border-bottom: 1px solid var(--gray-200);
+  margin-bottom: 1.75rem;
+}
+.tab {
+  padding: 9px 16px; font-size: 13px; color: var(--gray-500);
+  cursor: pointer; border-bottom: 2px solid transparent;
+  margin-bottom: -1px; background: none;
+  border-top: none; border-left: none; border-right: none;
+  font-family: 'Geist', sans-serif; font-weight: 500;
+  transition: all .15s; letter-spacing: -.01em;
+}
+.tab:hover { color: var(--black); }
+.tab.active { color: var(--black); border-bottom-color: var(--black); }
+
+/* ── STATS ── */
+.stats-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-bottom: 2rem; }
+.stat-card {
+  background: var(--white); border: 1px solid var(--gray-200);
+  border-radius: var(--radius); padding: 1.1rem;
+  text-align: center; box-shadow: var(--shadow-xs);
+  transition: all .18s;
+}
+.stat-card:hover { border-color: var(--gray-400); box-shadow: var(--shadow-sm); }
+.stat-num {
+  font-family: 'Instrument Serif', serif;
+  font-size: 28px; color: var(--black); line-height: 1;
+}
+.stat-label { font-size: 11px; color: var(--gray-400); margin-top: 4px; font-weight: 500; text-transform: uppercase; letter-spacing: .05em; }
+
+/* ── REQUEST CARDS ── */
+.req-card {
+  background: var(--white); border: 1px solid var(--gray-200);
+  border-radius: var(--radius-lg); padding: 1.25rem 1.5rem;
+  margin-bottom: .6rem;
+  display: flex; justify-content: space-between; align-items: flex-start;
+  cursor: pointer; transition: all .18s; box-shadow: var(--shadow-xs);
+}
+.req-card:hover { border-color: var(--black); box-shadow: var(--shadow); transform: translateY(-1px); }
+.req-title { font-size: 14px; font-weight: 600; margin-bottom: 4px; letter-spacing: -.01em; }
+.req-meta { font-size: 12.5px; color: var(--gray-500); }
+.req-actions { display: flex; flex-direction: column; align-items: flex-end; gap: 7px; flex-shrink: 0; margin-left: 1rem; }
+
+/* ── TABLE ── */
+.table-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+th {
+  text-align: left; padding: 9px 14px;
+  color: var(--gray-400); font-weight: 600;
+  border-bottom: 1px solid var(--gray-200);
+  font-size: 11px; text-transform: uppercase; letter-spacing: .07em;
+}
+td { padding: 12px 14px; border-bottom: 1px solid var(--gray-100); vertical-align: middle; }
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: var(--gray-50); }
+
+/* ── MODAL ── */
+.modal-bg {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.4); z-index: 200;
+  display: flex; align-items: center; justify-content: center;
+  padding: 1rem; backdrop-filter: blur(4px);
+}
+.modal-box {
+  background: var(--white); border-radius: var(--radius-xl);
+  padding: 2rem; width: 100%; max-width: 540px;
+  max-height: 90vh; overflow-y: auto;
+  box-shadow: var(--shadow-xl);
+  animation: pageIn .2s ease;
+  border: 1px solid var(--gray-200);
+}
+.modal-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.25rem; }
+.modal-title { font-size: 16px; font-weight: 600; letter-spacing: -.02em; }
+.modal-close {
+  background: none; border: none; font-size: 18px;
+  cursor: pointer; color: var(--gray-400); line-height: 1;
+  padding: 4px 8px; border-radius: 6px; transition: all .15s;
+}
+.modal-close:hover { background: var(--gray-100); color: var(--black); }
+
+/* ── UPLOAD ── */
+.upload-area {
+  border: 1.5px dashed var(--gray-300); border-radius: var(--radius);
+  padding: 1.5rem; text-align: center;
+  color: var(--gray-400); font-size: 13.5px;
+  cursor: pointer; transition: all .18s;
+}
+.upload-area:hover { border-color: var(--black); color: var(--black); background: var(--gray-50); }
+
+/* ── TOAST ── */
+.toast {
+  position: fixed; bottom: 1.5rem; right: 1.5rem;
+  background: var(--black); color: var(--white);
+  padding: 11px 18px; border-radius: var(--radius-sm);
+  font-size: 13.5px; z-index: 300;
+  transform: translateY(20px); opacity: 0;
+  transition: all .25s; pointer-events: none;
+  max-width: 320px; box-shadow: var(--shadow-xl);
+  border: 1px solid rgba(255,255,255,0.1);
+}
+.toast.show { transform: translateY(0); opacity: 1; }
+.toast.success { background: var(--black); }
+.toast.error { background: var(--danger); }
+
+/* ── EMPTY ── */
+.empty { text-align: center; padding: 5rem 1rem; color: var(--gray-400); }
+.empty-icon { font-size: 32px; margin-bottom: .75rem; opacity: .6; }
+.empty-title { font-size: 15px; font-weight: 600; color: var(--gray-600); margin-bottom: 5px; }
+.empty-sub { font-size: 13px; }
+
+/* ── STATUS STEPS ── */
+.steps { display: flex; align-items: flex-start; margin: 1rem 0 1.5rem; }
+.step { flex: 1; text-align: center; position: relative; }
+.step:not(:last-child)::after {
+  content: ''; position: absolute; top: 8px; left: 50%;
+  width: 100%; height: 1.5px; background: var(--gray-200); z-index: 0;
+}
+.step.done:not(:last-child)::after { background: var(--black); }
+.step-dot {
+  width: 17px; height: 17px; border-radius: 50%;
+  background: var(--gray-200); margin: 0 auto 5px;
+  border: 2px solid var(--gray-200); position: relative; z-index: 1;
+}
+.step.done .step-dot { background: var(--black); border-color: var(--black); }
+.step.active .step-dot { background: var(--white); border: 2.5px solid var(--black); box-shadow: 0 0 0 3px rgba(0,0,0,0.08); }
+.step-label { font-size: 10px; color: var(--gray-400); font-weight: 500; text-transform: uppercase; letter-spacing: .04em; }
+.step.done .step-label, .step.active .step-label { color: var(--black); }
+
+/* ── SPINNER ── */
+.spinner { display: inline-block; width: 14px; height: 14px; border: 2px solid rgba(255,255,255,.25); border-top-color: #fff; border-radius: 50%; animation: spin .65s linear infinite; vertical-align: middle; margin-right: 6px; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── LOADING ROW ── */
+.loading-row td { text-align: center; color: var(--gray-400); padding: 2.5rem; }
+
+/* ── INFO GRID ── */
+.info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; font-size: 13.5px; margin-bottom: 1.25rem; }
+.info-item span:first-child { display: block; font-size: 10.5px; color: var(--gray-400); font-weight: 600; margin-bottom: 3px; text-transform: uppercase; letter-spacing: .06em; }
+.info-item span:last-child { font-weight: 500; color: var(--black); }
+
+/* ══════════════════════════════════════════════════════════════
+   HOME PAGE
+══════════════════════════════════════════════════════════════ */
+.hero-section {
+  position: relative; overflow: hidden;
+  min-height: 92vh; display: flex; align-items: center; justify-content: center;
+  background: var(--white);
+}
+
+/* Radial spotlight overlay — sits above Vanta */
+.hero-section::after {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(ellipse 60% 50% at 50% 40%, rgba(255,255,255,0.45) 0%, transparent 70%);
+  pointer-events: none; z-index: 1;
+}
+
+.hero-content {
+  position: relative; z-index: 2;
+  text-align: center; padding: 5rem 2rem 4rem;
+  max-width: 780px;
+}
+
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--white); border: 1px solid var(--gray-200);
+  border-radius: 20px; padding: 5px 14px;
+  font-size: 12px; font-weight: 600; color: var(--gray-600);
+  letter-spacing: .06em; text-transform: uppercase;
+  margin-bottom: 2rem; box-shadow: var(--shadow-xs);
+}
+.hero-eyebrow::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--black); display: inline-block; }
+
+.hero-title {
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(42px, 6vw, 68px);
+  line-height: 1.08; letter-spacing: -1.5px;
+  color: var(--black); margin-bottom: 1.5rem;
+}
+.hero-title em { font-style: italic; color: var(--gray-500); }
+
+.hero-desc {
+  font-size: 17px; color: var(--gray-500);
+  max-width: 520px; margin: 0 auto 2.5rem;
+  line-height: 1.75; font-weight: 400;
+}
+
+.hero-btns { display: flex; gap: 10px; justify-content: center; margin-bottom: 3.5rem; }
+
+.hero-trust {
+  display: inline-flex; align-items: center; gap: 2rem;
+  padding: .85rem 2rem; border: 1px solid var(--gray-200);
+  border-radius: 40px; background: var(--white);
+  box-shadow: var(--shadow-sm);
+}
+.trust-item { text-align: center; }
+.trust-num { display: block; font-family: 'Instrument Serif', serif; font-size: 20px; color: var(--black); line-height: 1; }
+.trust-label { font-size: 11px; color: var(--gray-400); font-weight: 500; text-transform: uppercase; letter-spacing: .05em; }
+.trust-divider { width: 1px; height: 30px; background: var(--gray-200); }
+
+/* Features section */
+.features-section {
+  background: var(--gray-50);
+  border-top: 1px solid var(--gray-200);
+  border-bottom: 1px solid var(--gray-200);
+  padding: 5rem 2rem;
+}
+.features-inner { max-width: 1000px; margin: 0 auto; }
+.features-header { text-align: center; margin-bottom: 3rem; }
+.section-eyebrow {
+  display: inline-block; font-size: 11px; font-weight: 600;
+  color: var(--gray-500); letter-spacing: .1em;
+  text-transform: uppercase; margin-bottom: .75rem;
+}
+.features-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: var(--gray-200); border: 1px solid var(--gray-200); border-radius: var(--radius-lg); overflow: hidden; }
+.feature-item {
+  background: var(--white); padding: 2rem 1.75rem;
+  transition: background .18s;
+}
+.feature-item:hover { background: var(--gray-50); }
+.feature-num { font-family: 'Instrument Serif', serif; font-size: 36px; color: var(--gray-200); line-height: 1; margin-bottom: .85rem; }
+.feature-title { font-weight: 600; font-size: 14.5px; margin-bottom: .5rem; letter-spacing: -.01em; }
+.feature-desc { font-size: 13px; color: var(--gray-500); line-height: 1.65; }
+
+/* How it works */
+.how-section { padding: 5rem 2rem; background: var(--white); }
+.how-inner { max-width: 1000px; margin: 0 auto; }
+.how-steps-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 1.5rem; margin-top: 3rem; position: relative; }
+.how-steps-grid::before {
+  content: ''; position: absolute;
+  top: 20px; left: 10%; right: 10%; height: 1px;
+  background: repeating-linear-gradient(90deg, var(--gray-300) 0, var(--gray-300) 6px, transparent 6px, transparent 14px);
+  z-index: 0;
+}
+.how-step { text-align: center; position: relative; z-index: 1; }
+.how-step-circle {
+  width: 40px; height: 40px; border-radius: 50%;
+  background: var(--black); color: var(--white);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; font-weight: 600; margin: 0 auto 1rem;
+  box-shadow: 0 0 0 6px var(--white), 0 0 0 7px var(--gray-200);
+}
+.how-step-title { font-weight: 600; font-size: 14px; margin-bottom: .4rem; letter-spacing: -.01em; }
+.how-step-desc { font-size: 12.5px; color: var(--gray-500); line-height: 1.6; }
+
+/* CTA strip */
+.cta-strip {
+  background: var(--black); color: var(--white);
+  padding: 4rem 2rem; text-align: center;
+}
+.cta-title { font-family: 'Instrument Serif', serif; font-size: 36px; margin-bottom: .75rem; letter-spacing: -.5px; }
+.cta-sub { font-size: 15px; color: rgba(255,255,255,.55); margin-bottom: 2rem; }
+.btn-white { background: var(--white); color: var(--black); border-color: var(--white); }
+.btn-white:hover { background: var(--gray-100); }
+.btn-ghost { background: transparent; color: rgba(255,255,255,.7); border-color: rgba(255,255,255,.2); }
+.btn-ghost:hover { background: rgba(255,255,255,.08); color: var(--white); border-color: rgba(255,255,255,.4); }
+
+/* ══════════════════════════════════════════════════════════════
+   MOBILE RESPONSIVE — max-width: 768px
+══════════════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+
+  /* ── NAV ── */
+  nav { padding: 0 1rem; height: 54px; }
+  .nav-brand { font-size: 17px; }
+  .nav-btn { padding: 6px 10px; font-size: 12.5px; }
+  .btn-sm { padding: 6px 10px; font-size: 12px; }
+  #userName { display: none; }
+
+  /* ── CONTAINER ── */
+  .container { padding: 1.5rem 1rem; }
+
+  /* ── HERO ── */
+  .hero-section { min-height: auto; }
+  .hero-content { padding: 3rem 1.25rem 2.5rem; }
+  .hero-eyebrow { font-size: 10.5px; padding: 4px 12px; margin-bottom: 1.25rem; }
+  .hero-title { font-size: clamp(32px, 9vw, 48px); letter-spacing: -1px; margin-bottom: 1rem; }
+  .hero-desc { font-size: 15px; margin-bottom: 2rem; }
+  .hero-btns { flex-direction: column; align-items: center; gap: 8px; }
+  .hero-btns .btn { width: 100%; max-width: 280px; justify-content: center; }
+  .hero-trust {
+    flex-direction: row; flex-wrap: wrap;
+    gap: 1rem; padding: .75rem 1.25rem;
+    border-radius: 14px;
+  }
+  .trust-divider { display: none; }
+  .trust-item { flex: 1; min-width: 60px; }
+
+  /* ── FEATURES ── */
+  .features-section { padding: 3rem 1rem; }
+  .features-grid { grid-template-columns: 1fr; background: none; border: none; border-radius: 0; gap: .6rem; }
+  .feature-item { border: 1px solid var(--gray-200); border-radius: var(--radius-lg); }
+  .feature-num { font-size: 28px; margin-bottom: .6rem; }
+
+  /* ── HOW IT WORKS ── */
+  .how-section { padding: 3rem 1rem; }
+  .how-steps-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+  }
+  .how-steps-grid::before { display: none; }
+
+  /* ── CTA ── */
+  .cta-strip { padding: 3rem 1.25rem; }
+  .cta-title { font-size: 26px; }
+  .cta-strip > div { flex-direction: column; align-items: center; gap: 8px; }
+  .cta-strip .btn { width: 100%; max-width: 260px; justify-content: center; }
+
+  /* ── AUTH ── */
+  .auth-wrap { padding: 1rem; align-items: flex-start; padding-top: 2rem; }
+  .auth-card { padding: 1.75rem 1.25rem; border-radius: var(--radius-lg); }
+  .auth-title { font-size: 22px; }
+
+  /* ── FORM ── */
+  .form-row { grid-template-columns: 1fr; gap: 0; }
+
+  /* ── DASHBOARD HEADER ── */
+  #page-user .container > div:first-child,
+  #page-admin .container > div:first-child {
+    flex-direction: column; gap: .75rem; align-items: flex-start;
+  }
+  #page-user .container > div:first-child .btn,
+  #page-admin .container > div:first-child .btn {
+    width: 100%;
+  }
+
+  /* ── TABS ── */
+  .tabs { overflow-x: auto; -webkit-overflow-scrolling: touch; flex-wrap: nowrap; gap: 0; padding-bottom: 0; }
+  .tab { padding: 8px 12px; font-size: 12.5px; white-space: nowrap; flex-shrink: 0; }
+
+  /* ── STATS ── */
+  .stats-grid { grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .stat-num { font-size: 22px; }
+  .stat-label { font-size: 10px; }
+
+  /* ── REQUEST CARDS ── */
+  .req-card { flex-direction: column; gap: .75rem; padding: 1rem 1.1rem; }
+  .req-actions { flex-direction: row; align-items: center; flex-wrap: wrap; margin-left: 0; gap: 6px; width: 100%; }
+  .req-title { font-size: 13.5px; }
+  .req-meta { font-size: 12px; }
+
+  /* ── ADMIN TABLE — stack on mobile ── */
+  .table-wrap { margin: 0 -1px; }
+  table, thead, tbody, th, td, tr { display: block; }
+  thead { display: none; }
+  tr {
+    border: 1px solid var(--gray-200); border-radius: var(--radius);
+    margin-bottom: .6rem; padding: .9rem 1rem;
+    background: var(--white);
+  }
+  td {
+    padding: 4px 0; border: none;
+    display: flex; align-items: center; gap: 8px;
+    font-size: 13px;
+  }
+  td::before {
+    content: attr(data-label);
+    font-size: 10px; font-weight: 600;
+    color: var(--gray-400); text-transform: uppercase;
+    letter-spacing: .06em; min-width: 72px; flex-shrink: 0;
+  }
+  td:last-child { margin-top: .5rem; padding-top: .5rem; border-top: 1px solid var(--gray-100); flex-wrap: wrap; }
+
+  /* ── MODAL ── */
+  .modal-bg { padding: 0; align-items: flex-end; }
+  .modal-box {
+    border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+    max-height: 92vh; padding: 1.5rem 1.25rem;
+    border-left: none; border-right: none; border-bottom: none;
+  }
+
+  /* ── INFO GRID ── */
+  .info-grid { grid-template-columns: 1fr 1fr; gap: .6rem; }
+
+  /* ── STEPS ── */
+  .step-label { font-size: 9px; }
+
+  /* ── SECTION TITLES ── */
+  .section-title { font-size: 22px; }
+  .section-sub { font-size: 13px; margin-bottom: 1.25rem; }
+
+  /* ── TOAST ── */
+  .toast { right: 1rem; left: 1rem; max-width: none; bottom: 1rem; text-align: center; }
+
+  /* ── UPLOAD AREA ── */
+  .upload-area { padding: 1.1rem; font-size: 13px; }
+
+  /* ── CARD ── */
+  .card { padding: 1.1rem; }
+}
+
+/* ── EXTRA SMALL (iPhone SE etc) ── */
+@media (max-width: 380px) {
+  .hero-title { font-size: 30px; }
+  .stats-grid { grid-template-columns: 1fr 1fr; }
+  .how-steps-grid { grid-template-columns: 1fr; }
+  .auth-card { padding: 1.5rem 1rem; }
+  .info-grid { grid-template-columns: 1fr; }
+}
+
+/* ── TABLET (769px - 1024px) ── */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .container { padding: 2rem 1.5rem; }
+  .hero-title { font-size: clamp(38px, 5vw, 56px); }
+  .features-grid { grid-template-columns: 1fr 1fr 1fr; }
+  .how-steps-grid { grid-template-columns: repeat(4, 1fr); }
+  .stats-grid { grid-template-columns: repeat(5, 1fr); }
+  .hero-btns { flex-direction: row; }
+}
+
+/* ── TOUCH IMPROVEMENTS ── */
+@media (hover: none) {
+  .btn:hover { transform: none; box-shadow: none; }
+  .req-card:hover { transform: none; box-shadow: var(--shadow-xs); border-color: var(--gray-200); }
+  input, select, textarea { font-size: 16px; } /* prevents iOS zoom on focus */
+}
+
+/* ══════════════════════════════════════════════════════════════
+   PROFILE PAGE — PREMIUM SAAS STYLE
+══════════════════════════════════════════════════════════════ */
+
+/* Page wrapper */
+.profile-page-wrap {
+  position: relative; z-index: 1;
+  max-width: 1100px; margin: 0 auto;
+  padding: 2.5rem 2rem 4rem;
+}
+
+/* ── HEADER CARD ── */
+.profile-header-card {
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-xl);
+  padding: 2rem 2.5rem;
+  display: flex; align-items: center; gap: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: var(--shadow);
+  position: relative; overflow: hidden;
+  animation: pageIn .3s ease;
+}
+.profile-header-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: var(--black);
+}
+
+/* Avatar ring */
+.profile-avatar-wrap { position: relative; flex-shrink: 0; }
+.profile-avatar-ring {
+  width: 96px; height: 96px; border-radius: 50%;
+  border: 2.5px solid var(--gray-200);
+  background: var(--black);
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
+  box-shadow: 0 0 0 4px rgba(0,0,0,0.05);
+  transition: box-shadow .2s;
+}
+.profile-avatar-ring:hover { box-shadow: 0 0 0 4px rgba(0,0,0,0.1); }
+.profile-avatar-initials {
+  font-size: 28px; font-weight: 700; color: var(--white);
+  font-family: 'Instrument Serif', serif; letter-spacing: -.02em;
+  line-height: 1;
+}
+.profile-upload-btn {
+  position: absolute; bottom: 2px; right: 2px;
+  width: 28px; height: 28px; border-radius: 50%;
+  background: var(--black); color: var(--white);
+  border: 2px solid var(--white);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; transition: all .18s;
+  box-shadow: var(--shadow-sm);
+}
+.profile-upload-btn:hover { background: var(--gray-700); transform: scale(1.08); }
+
+/* Header info */
+.profile-header-info { flex: 1; min-width: 0; }
+.profile-header-name {
+  font-family: 'Instrument Serif', serif;
+  font-size: 26px; color: var(--black);
+  letter-spacing: -.4px; line-height: 1.2;
+  margin-bottom: 4px;
+}
+.profile-header-email {
+  font-size: 13.5px; color: var(--gray-500); margin-bottom: .75rem;
+}
+.profile-header-meta { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.profile-role-badge {
+  display: inline-block; padding: 4px 11px;
+  background: var(--black); color: var(--white);
+  border-radius: 20px; font-size: 11px; font-weight: 600;
+  letter-spacing: .06em; text-transform: uppercase;
+}
+.profile-joined {
+  font-size: 12px; color: var(--gray-400); font-weight: 500;
+}
+
+/* ── SETTINGS LAYOUT ── */
+.profile-settings-layout {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+/* ── SUMMARY CARD (Left) ── */
+.profile-summary-card {
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem 1.5rem;
+  box-shadow: var(--shadow-xs);
+  text-align: center;
+  position: sticky; top: 80px;
+  animation: pageIn .35s ease;
+}
+.profile-summary-avatar {
+  width: 68px; height: 68px; border-radius: 50%;
+  background: var(--black); margin: 0 auto .9rem;
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden; border: 2px solid var(--gray-200);
+}
+.psi-text {
+  font-size: 22px; font-weight: 700; color: var(--white);
+  font-family: 'Instrument Serif', serif;
+}
+.profile-summary-name {
+  font-size: 15px; font-weight: 600; color: var(--black);
+  letter-spacing: -.01em; margin-bottom: 3px;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.profile-summary-email {
+  font-size: 11.5px; color: var(--gray-400);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.profile-summary-divider {
+  height: 1px; background: var(--gray-200); margin: 1.1rem 0;
+}
+.profile-summary-items { display: flex; flex-direction: column; gap: .6rem; text-align: left; }
+.profile-summary-item {
+  display: flex; align-items: center; gap: 9px;
+  font-size: 12.5px; color: var(--gray-500);
+}
+.profile-summary-item svg { color: var(--gray-400); flex-shrink: 0; }
+
+/* ── SETTINGS CARDS (Right) ── */
+.profile-settings-main { display: flex; flex-direction: column; gap: 1.25rem; }
+
+.profile-settings-card {
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem;
+  box-shadow: var(--shadow-xs);
+  transition: box-shadow .2s;
+  animation: pageIn .3s ease;
+}
+.profile-settings-card:hover { box-shadow: var(--shadow-sm); }
+
+.profile-card-header {
+  display: flex; align-items: flex-start; gap: 14px; margin-bottom: 0;
+}
+.profile-card-icon {
+  width: 36px; height: 36px; border-radius: var(--radius-sm);
+  background: var(--gray-100); color: var(--black);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.profile-card-icon-danger { background: var(--danger-bg); color: var(--danger); }
+.profile-card-title { font-size: 14.5px; font-weight: 600; color: var(--black); letter-spacing: -.01em; }
+.profile-card-sub { font-size: 12.5px; color: var(--gray-400); margin-top: 2px; }
+
+.profile-card-divider { height: 1px; background: var(--gray-100); margin: 1.25rem 0; }
+
+/* ── PASSWORD FIELD ── */
+.pass-input-wrap { position: relative; }
+.pass-input-wrap input { padding-right: 44px; }
+.pass-toggle {
+  position: absolute; right: 10px; top: 50%; transform: translateY(-50%);
+  background: none; border: none; cursor: pointer;
+  color: var(--gray-400); padding: 4px;
+  border-radius: 5px; transition: all .15s;
+  display: flex; align-items: center; justify-content: center;
+}
+.pass-toggle:hover { color: var(--black); background: var(--gray-100); }
+
+/* ── PASSWORD STRENGTH ── */
+.pass-strength-wrap {
+  display: flex; align-items: center; gap: 10px; margin-top: .5rem; margin-bottom: .5rem;
+}
+.pass-strength-bars { display: flex; gap: 4px; flex: 1; }
+.psb {
+  height: 3px; flex: 1; border-radius: 99px;
+  background: var(--gray-200); transition: background .25s;
+}
+.psb.weak { background: var(--danger); }
+.psb.fair { background: var(--warn); }
+.psb.good { background: #059669; }
+.psb.strong { background: var(--black); }
+.pass-strength-label { font-size: 11.5px; color: var(--gray-400); font-weight: 500; white-space: nowrap; min-width: 46px; }
+
+/* ── DANGER ZONE ── */
+.profile-danger-card { border-color: rgba(220,38,38,0.15); }
+.danger-zone-actions { display: flex; flex-direction: column; gap: 0; }
+.danger-zone-item {
+  display: flex; justify-content: space-between; align-items: center;
+  gap: 1rem; padding: .75rem 0;
+}
+.danger-zone-divider { height: 1px; background: rgba(220,38,38,0.1); }
+.danger-item-title { font-size: 13.5px; font-weight: 500; color: var(--gray-700); }
+.danger-item-sub { font-size: 12px; color: var(--gray-400); margin-top: 2px; max-width: 340px; }
+.btn-delete-account { opacity: .7; }
+.btn-delete-account:hover { opacity: 1; }
+
+/* ── FORM ERROR (profile reuse) ── */
+#profileNameErr, #profilePassErr {
+  font-size: 12px; color: var(--danger); margin-top: -4px;
+  margin-bottom: 6px; display: none;
+}
+#profileNameErr.show, #profilePassErr.show { display: block; }
+
+/* ── RESPONSIVE: TABLET ── */
+@media (max-width: 900px) {
+  .profile-settings-layout {
+    grid-template-columns: 1fr;
+  }
+  .profile-summary-card {
+    position: static;
+    display: flex; align-items: center; gap: 1.25rem;
+    text-align: left;
+  }
+  .profile-summary-avatar { margin: 0; flex-shrink: 0; }
+  .profile-summary-items { flex-direction: row; flex-wrap: wrap; gap: .5rem 1.25rem; }
+}
+
+/* ── RESPONSIVE: MOBILE ── */
+@media (max-width: 600px) {
+  .profile-page-wrap { padding: 1.25rem 1rem 3rem; }
+  .profile-header-card {
+    flex-direction: column; align-items: flex-start;
+    gap: 1.25rem; padding: 1.5rem;
+  }
+  .profile-settings-card { padding: 1.25rem; }
+  .profile-summary-card { flex-direction: column; text-align: center; }
+  .profile-summary-items { flex-direction: column; }
+  .danger-zone-item { flex-direction: column; align-items: flex-start; gap: .75rem; }
+  .danger-zone-item .btn { align-self: flex-start; }
+}
+
+</style>
+</head>
+<body>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-brand" onclick="showPage('home')">Work<span>Bridge</span></div>
+  <div class="nav-links" id="navLinks">
+    <button class="nav-btn" onclick="showPage('login')">Log in</button>
+    <button class="btn btn-primary btn-sm" onclick="showPage('register')">Get started</button>
+  </div>
+  <div class="nav-user" id="navUser" style="display:none">
+    <div id="navLinks2" style="display:flex;gap:4px"></div>
+    <div style="display:flex;align-items:center;gap:8px">
+      <div class="avatar" id="userAvatar">?</div>
+      <span style="font-size:13.5px;font-weight:500" id="userName"></span>
+      <button class="nav-btn" onclick="logout()" style="font-size:13px">Log out</button>
+    </div>
+  </div>
+</nav>
+
+<!-- ══ HOME ══ -->
+<div id="page-home" class="page active">
+
+  <!-- HERO -->
+  <div class="hero-section">
+    <div id="home-vanta-bg" style="position:absolute;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;"></div>
+    <div class="hero-content">
+      <div class="hero-eyebrow">Academic & Web Development Services</div>
+      <h1 class="hero-title">
+        Submit your work.<br>
+        <em>We deliver</em> results.
+      </h1>
+      <p class="hero-desc">
+        From assignment help to full web projects — submit a request, track progress, and download your completed work securely.
+      </p>
+      <div class="hero-btns">
+        <button class="btn btn-primary btn-lg" onclick="showPage('register')">Get started free →</button>
+        <button class="btn btn-lg" onclick="showPage('login')">Log in</button>
+      </div>
+      <div class="hero-trust">
+        <div class="trust-item"><span class="trust-num">100%</span><span class="trust-label">Secure</span></div>
+        <div class="trust-divider"></div>
+        <div class="trust-item"><span class="trust-num">24h</span><span class="trust-label">Response</span></div>
+        <div class="trust-divider"></div>
+        <div class="trust-item"><span class="trust-num">3</span><span class="trust-label">Services</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FEATURES -->
+  <div class="features-section">
+    <div class="features-inner">
+      <div class="features-header">
+        <div class="section-eyebrow">What we offer</div>
+        <h2 class="serif" style="font-size:32px;letter-spacing:-.4px">Everything you need, delivered.</h2>
+      </div>
+      <div class="features-grid">
+        <div class="feature-item">
+          <div class="feature-num">01</div>
+          <div class="feature-title">Assignment Help</div>
+          <div class="feature-desc">Essays, reports, research, coding assignments and more handled professionally and on time.</div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-num">02</div>
+          <div class="feature-title">Web Development</div>
+          <div class="feature-desc">Websites, landing pages, dashboards and web apps built precisely to your specification.</div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-num">03</div>
+          <div class="feature-title">Secure Delivery</div>
+          <div class="feature-desc">Files are locked until payment is verified by admin. Your work and your money are always protected.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HOW IT WORKS -->
+  <div class="how-section">
+    <div class="how-inner">
+      <div style="text-align:center">
+        <div class="section-eyebrow">Process</div>
+        <h2 class="serif" style="font-size:32px;letter-spacing:-.4px">How it works</h2>
+      </div>
+      <div class="how-steps-grid">
+        <div class="how-step">
+          <div class="how-step-circle">1</div>
+          <div class="how-step-title">Submit Request</div>
+          <div class="how-step-desc">Fill in details & attach your files</div>
+        </div>
+        <div class="how-step">
+          <div class="how-step-circle">2</div>
+          <div class="how-step-title">Get Reviewed</div>
+          <div class="how-step-desc">Admin sets price & timeline</div>
+        </div>
+        <div class="how-step">
+          <div class="how-step-circle">3</div>
+          <div class="how-step-title">Work Delivered</div>
+          <div class="how-step-desc">Completed files uploaded securely</div>
+        </div>
+        <div class="how-step">
+          <div class="how-step-circle">4</div>
+          <div class="how-step-title">Pay & Download</div>
+          <div class="how-step-desc">Upload receipt, get verified, download</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA STRIP -->
+  <div class="cta-strip">
+    <h2 class="cta-title">Ready to get started?</h2>
+    <p class="cta-sub">Join now and submit your first request in under 2 minutes.</p>
+    <div style="display:flex;gap:10px;justify-content:center">
+      <button class="btn btn-white btn-lg" onclick="showPage('register')">Create free account</button>
+      <button class="btn btn-ghost btn-lg" onclick="showPage('login')">Log in →</button>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══ LOGIN ══ -->
+<div id="page-login" class="page">
+  <div class="auth-wrap">
+    <div class="auth-card">
+      <span class="auth-logo">WorkBridge</span>
+      <h2 class="auth-title">Welcome back</h2>
+      <p class="auth-sub">Log in to view and manage your requests</p>
+      <div class="form-group">
+        <label>Email address</label>
+        <input type="email" id="loginEmail" placeholder="you@email.com" onkeydown="if(event.key==='Enter')doLogin()">
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" id="loginPassword" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()">
+      </div>
+      <div id="loginError" class="form-error"></div>
+      <button class="btn btn-primary" id="loginBtn" style="width:100%;justify-content:center;margin-top:.5rem" onclick="doLogin()">Log in</button>
+      <div class="divider"></div>
+      <div style="text-align:center;font-size:13.5px;color:var(--gray-500)">Don't have an account? <a href="#" onclick="showPage('register')" style="color:var(--black);font-weight:500">Sign up</a></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ REGISTER ══ -->
+<div id="page-register" class="page">
+  <div class="auth-wrap">
+    <div class="auth-card">
+      <span class="auth-logo">WorkBridge</span>
+      <h2 class="auth-title">Create account</h2>
+      <p class="auth-sub">Join to submit and track your service requests</p>
+      <div class="form-row">
+        <div class="form-group"><label>First name</label><input type="text" id="regFirst" placeholder="Jane"></div>
+        <div class="form-group"><label>Last name</label><input type="text" id="regLast" placeholder="Smith"></div>
+      </div>
+      <div class="form-group"><label>Email address</label><input type="email" id="regEmail" placeholder="you@email.com"></div>
+      <div class="form-group"><label>Password</label><input type="password" id="regPass" placeholder="Min. 8 characters"></div>
+      <div class="form-group"><label>Confirm password</label><input type="password" id="regPass2" placeholder="Repeat password"></div>
+      <div id="regError" class="form-error"></div>
+      <button class="btn btn-primary" id="regBtn" style="width:100%;justify-content:center;margin-top:.5rem" onclick="doRegister()">Create account</button>
+      <div class="divider"></div>
+      <div style="text-align:center;font-size:13.5px;color:var(--gray-500)">Already have an account? <a href="#" onclick="showPage('login')" style="color:var(--black);font-weight:500">Log in</a></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ USER DASHBOARD ══ -->
+<div id="page-user" class="page">
+  <div class="container">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:2rem">
+      <div>
+        <h1 class="section-title">My Requests</h1>
+        <p class="section-sub" style="margin-bottom:0">Track and manage your submitted service requests</p>
+      </div>
+      <button class="btn btn-primary" onclick="openNewRequest()" style="margin-top:.25rem">+ New Request</button>
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem">
+      <div class="tabs" style="margin-bottom:0;border-bottom:none">
+        <button class="tab active" onclick="filterReqs('all',this)">All</button>
+        <button class="tab" onclick="filterReqs('Pending',this)">Pending</button>
+        <button class="tab" onclick="filterReqs('Accepted',this)">Accepted</button>
+        <button class="tab" onclick="filterReqs('Completed',this)">Completed</button>
+        <button class="tab" onclick="filterReqs('Delivered',this)">Delivered</button>
+      </div>
+    </div>
+    <div id="userReqList"></div>
+  </div>
+</div>
+
+<!-- ══ ADMIN DASHBOARD ══ -->
+<div id="page-admin" class="page">
+  <div class="container">
+    <div style="margin-bottom:2rem">
+      <h1 class="section-title">Admin Dashboard</h1>
+      <p class="section-sub" style="margin-bottom:0">Manage all incoming and active service requests</p>
+    </div>
+    <div class="stats-grid" id="adminStats">
+      <div class="stat-card"><div class="stat-num">—</div><div class="stat-label">Total</div></div>
+      <div class="stat-card"><div class="stat-num">—</div><div class="stat-label">Pending</div></div>
+      <div class="stat-card"><div class="stat-num">—</div><div class="stat-label">In Progress</div></div>
+      <div class="stat-card"><div class="stat-num">—</div><div class="stat-label">Completed</div></div>
+      <div class="stat-card"><div class="stat-num">—</div><div class="stat-label">Verify</div></div>
+    </div>
+    <div class="card" style="padding:0">
+      <div style="display:flex;justify-content:space-between;align-items:center;padding:1.25rem 1.5rem;border-bottom:1px solid var(--gray-100)">
+        <div style="font-weight:600;font-size:14px;letter-spacing:-.01em">All Requests</div>
+        <select id="adminFilter" style="width:auto;padding:6px 10px;font-size:13px" onchange="loadAdminRequests()">
+          <option value="">All statuses</option>
+          <option value="Pending">Pending</option>
+          <option value="Accepted">Accepted</option>
+          <option value="Declined">Declined</option>
+          <option value="Completed">Completed</option>
+          <option value="Delivered">Delivered</option>
+        </select>
+      </div>
+      <div class="table-wrap" style="padding:0">
+        <table><thead><tr><th>Title</th><th>Client</th><th>Category</th><th>Deadline</th><th>Status</th><th>Actions</th></tr></thead>
+        <tbody id="adminTableBody"><tr class="loading-row"><td colspan="6">Loading requests...</td></tr></tbody></table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ PROFILE PAGE ══ -->
+<div id="page-profile" class="page">
+
+  <!-- Vanta Birds Background -->
+  <div id="profile-vanta-bg" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;"></div>
+
+  <div class="profile-page-wrap">
+
+    <!-- ── PROFILE HEADER CARD ── -->
+    <div class="profile-header-card">
+      <div class="profile-avatar-wrap">
+        <div class="profile-avatar-ring">
+          <img id="profileAvatarImg" src="" alt="" style="display:none;width:100%;height:100%;object-fit:cover;border-radius:50%;">
+          <div id="profileAvatarInitials" class="profile-avatar-initials">?</div>
+        </div>
+        <button class="profile-upload-btn" onclick="document.getElementById('profilePhotoInput').click()" title="Upload photo">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+        </button>
+        <input type="file" id="profilePhotoInput" accept="image/*" style="display:none" onchange="previewProfilePhoto(this)">
+      </div>
+      <div class="profile-header-info">
+        <h2 class="profile-header-name" id="profileHeaderName">—</h2>
+        <div class="profile-header-email" id="profileHeaderEmail">—</div>
+        <div class="profile-header-meta">
+          <span class="profile-role-badge" id="profileRoleBadge">Member</span>
+          <span class="profile-joined" id="profileJoined">Member since —</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SETTINGS LAYOUT ── -->
+    <div class="profile-settings-layout">
+
+      <!-- Left: Summary Card -->
+      <aside class="profile-summary-card">
+        <div class="profile-summary-avatar">
+          <img id="profileSummaryImg" src="" alt="" style="display:none;width:100%;height:100%;object-fit:cover;border-radius:50%;">
+          <div id="profileSummaryInitials" class="psi-text">?</div>
+        </div>
+        <div class="profile-summary-name" id="profileSummaryName">—</div>
+        <div class="profile-summary-email" id="profileSummaryEmail">—</div>
+        <div class="profile-summary-divider"></div>
+        <div class="profile-summary-items">
+          <div class="profile-summary-item">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            <span id="profileSummaryRole">Member</span>
+          </div>
+          <div class="profile-summary-item">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            <span id="profileSummaryJoined">—</span>
+          </div>
+          <div class="profile-summary-item">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            <span>Account Active</span>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Right: Settings Cards -->
+      <div class="profile-settings-main">
+
+        <!-- Profile Information -->
+        <div class="profile-settings-card">
+          <div class="profile-card-header">
+            <div class="profile-card-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <div>
+              <div class="profile-card-title">Profile Information</div>
+              <div class="profile-card-sub">Update your personal details</div>
+            </div>
+          </div>
+          <div class="profile-card-divider"></div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Full name</label>
+              <input type="text" id="profileName" placeholder="Your full name">
+            </div>
+            <div class="form-group">
+              <label>Phone number</label>
+              <input type="tel" id="profilePhone" placeholder="+1 (555) 000-0000">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Email address</label>
+              <input type="email" id="profileEmail" placeholder="you@email.com" readonly style="background:var(--gray-50);color:var(--gray-500);cursor:default">
+            </div>
+            <div class="form-group">
+              <label>Account type</label>
+              <select id="profileType">
+                <option value="Student">Student</option>
+                <option value="Client">Client</option>
+                <option value="Professional">Professional</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-error" id="profileNameErr"></div>
+          <div style="display:flex;justify-content:flex-end;margin-top:.5rem">
+            <button class="btn btn-primary" onclick="saveProfileName()">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+              Save changes
+            </button>
+          </div>
+        </div>
+
+        <!-- Account Security -->
+        <div class="profile-settings-card">
+          <div class="profile-card-header">
+            <div class="profile-card-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            </div>
+            <div>
+              <div class="profile-card-title">Account Security</div>
+              <div class="profile-card-sub">Change your password</div>
+            </div>
+          </div>
+          <div class="profile-card-divider"></div>
+          <div class="form-group">
+            <label>Current password</label>
+            <div class="pass-input-wrap">
+              <input type="password" id="profileCurPass" placeholder="Enter current password">
+              <button class="pass-toggle" type="button" onclick="togglePass('profileCurPass', this)" tabindex="-1">
+                <svg class="eye-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              </button>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>New password</label>
+              <div class="pass-input-wrap">
+                <input type="password" id="profileNewPass" placeholder="Min. 8 characters" oninput="updatePassStrength(this.value)">
+                <button class="pass-toggle" type="button" onclick="togglePass('profileNewPass', this)" tabindex="-1">
+                  <svg class="eye-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                </button>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Confirm new password</label>
+              <div class="pass-input-wrap">
+                <input type="password" id="profileNewPass2" placeholder="Repeat new password">
+                <button class="pass-toggle" type="button" onclick="togglePass('profileNewPass2', this)" tabindex="-1">
+                  <svg class="eye-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                </button>
+              </div>
+            </div>
+          </div>
+          <!-- Password Strength -->
+          <div class="pass-strength-wrap" id="passStrengthWrap" style="display:none">
+            <div class="pass-strength-bars">
+              <div class="psb" id="psb1"></div>
+              <div class="psb" id="psb2"></div>
+              <div class="psb" id="psb3"></div>
+              <div class="psb" id="psb4"></div>
+            </div>
+            <span class="pass-strength-label" id="passStrengthLabel">Weak</span>
+          </div>
+          <div class="form-error" id="profilePassErr"></div>
+          <div style="display:flex;justify-content:flex-end;margin-top:.5rem">
+            <button class="btn btn-primary" onclick="saveProfilePassword()">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              Update password
+            </button>
+          </div>
+        </div>
+
+        <!-- Danger Zone -->
+        <div class="profile-settings-card profile-danger-card">
+          <div class="profile-card-header">
+            <div class="profile-card-icon profile-card-icon-danger">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            </div>
+            <div>
+              <div class="profile-card-title" style="color:var(--danger)">Danger Zone</div>
+              <div class="profile-card-sub">Irreversible account actions</div>
+            </div>
+          </div>
+          <div class="profile-card-divider" style="background:rgba(220,38,38,0.12)"></div>
+          <div class="danger-zone-actions">
+            <div class="danger-zone-item">
+              <div>
+                <div class="danger-item-title">Sign out of account</div>
+                <div class="danger-item-sub">End your current session securely</div>
+              </div>
+              <button class="btn btn-danger" onclick="logout()">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+                Log out
+              </button>
+            </div>
+            <div class="danger-zone-divider"></div>
+            <div class="danger-zone-item">
+              <div>
+                <div class="danger-item-title">Delete account</div>
+                <div class="danger-item-sub">Permanently remove your account and all data. This cannot be undone.</div>
+              </div>
+              <button class="btn btn-danger btn-delete-account" onclick="showToast('Please contact support to delete your account.', 'error')">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4h6v2"/></svg>
+                Delete account
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- end .profile-settings-main -->
+    </div><!-- end .profile-settings-layout -->
+  </div><!-- end .profile-page-wrap -->
+</div>
+
+<!-- ══ USER CHAT PAGE ══ -->
+<!-- ══ CLIENTS PAGE ══ -->
+<div id="page-clients" class="page">
+  <div class="container">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:2rem">
+      <div>
+        <h1 class="section-title">Clients</h1>
+        <p class="section-sub" style="margin-bottom:0">View and manage all registered clients</p>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center">
+        <input type="text" id="clientSearch" placeholder="Search by name or email..." style="width:240px;font-size:13px" oninput="filterClients()">
+      </div>
+    </div>
+
+    <!-- Stats row -->
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:1.75rem" id="clientStats">
+      <div class="stat-card"><div class="stat-num">—</div><div class="stat-label">Total Clients</div></div>
+      <div class="stat-card"><div class="stat-num">—</div><div class="stat-label">Active (have requests)</div></div>
+      <div class="stat-card"><div class="stat-num">—</div><div class="stat-label">New this month</div></div>
+    </div>
+
+    <!-- Clients grid -->
+    <div id="clientsGrid"></div>
+  </div>
+</div>
+
+<!-- ══ CLIENT DETAIL MODAL (reuses reqModal) ══ -->
+
+<div id="page-chat" class="page">
+  <div class="container" style="max-width:680px;display:flex;flex-direction:column;height:calc(100vh - 100px)">
+    <div style="margin-bottom:1rem">
+      <h1 class="section-title" style="margin-bottom:.2rem">Chat with Admin</h1>
+      <p class="section-sub" style="margin-bottom:0">Ask questions about your requests</p>
+    </div>
+    <div class="card" style="flex:1;display:flex;flex-direction:column;padding:0;overflow:hidden">
+      <div id="chatMessages" style="flex:1;overflow-y:auto;padding:1.25rem;display:flex;flex-direction:column;gap:.6rem"></div>
+      <div style="border-top:1px solid var(--gray-100);padding:.9rem 1rem;display:flex;gap:.6rem;align-items:flex-end">
+        <textarea id="chatInput" rows="2" placeholder="Type a message…" style="flex:1;resize:none;padding:.65rem .9rem;font-size:13.5px;border:1.5px solid var(--gray-200);border-radius:10px;font-family:inherit;line-height:1.5" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendChat()}"></textarea>
+        <button class="btn btn-primary" style="height:44px;padding:0 1.1rem;flex-shrink:0" onclick="sendChat()">Send</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ ADMIN CHAT PAGE ══ -->
+<div id="page-adminchat" class="page">
+  <div class="container" style="max-width:900px">
+    <div style="margin-bottom:1.25rem">
+      <h1 class="section-title" style="margin-bottom:.2rem">Messages</h1>
+      <p class="section-sub" style="margin-bottom:0">Conversations with clients</p>
+    </div>
+    <div style="display:grid;grid-template-columns:260px 1fr;gap:1rem;height:calc(100vh - 160px)">
+      <!-- Sidebar: conversation list -->
+      <div class="card" style="padding:0;overflow-y:auto">
+        <div id="chatConvList" style="padding:.5rem"></div>
+      </div>
+      <!-- Chat area -->
+      <div class="card" style="padding:0;display:flex;flex-direction:column;overflow:hidden">
+        <div id="adminChatHeader" style="padding:.9rem 1.1rem;border-bottom:1px solid var(--gray-100);font-weight:600;font-size:14px;color:var(--gray-400)">Select a conversation</div>
+        <div id="adminChatMessages" style="flex:1;overflow-y:auto;padding:1.25rem;display:flex;flex-direction:column;gap:.6rem"></div>
+        <div id="adminChatInput" style="border-top:1px solid var(--gray-100);padding:.9rem 1rem;display:none;gap:.6rem;align-items:flex-end">
+          <textarea id="adminChatText" rows="2" placeholder="Reply…" style="flex:1;resize:none;padding:.65rem .9rem;font-size:13.5px;border:1.5px solid var(--gray-200);border-radius:10px;font-family:inherit;line-height:1.5" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendAdminChat()}"></textarea>
+          <button class="btn btn-primary" style="height:44px;padding:0 1.1rem;flex-shrink:0" onclick="sendAdminChat()">Send</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ REQUEST MODAL ══ -->
+<div class="modal-bg" id="reqModal" style="display:none" onclick="if(event.target===this)closeModal()">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div class="modal-title" id="modalTitle">Request</div>
+      <button class="modal-close" onclick="closeModal()">×</button>
+    </div>
+    <div id="modalBody"></div>
+  </div>
+</div>
+
+<script>
+// ══ CONFIG ══════════════════════════════════════════════════════════════════
+const API = 'http://localhost:5080/api';
+
+// ══ STATE ════════════════════════════════════════════════════════════════════
+let currentUser = null;
+let authToken = null;
+let currentFilter = 'all';
+
+// ══ API HELPER ════════════════════════════════════════════════════════════════
+async function api(method, path, body = null, auth = true) {
+  const headers = { 'Content-Type': 'application/json' };
+  if (auth && authToken) headers['Authorization'] = `Bearer ${authToken}`;
+  try {
+    const res = await fetch(`${API}${path}`, {
+      method, headers,
+      body: body ? JSON.stringify(body) : null
+    });
+    const data = await res.json().catch(() => ({}));
+    return { ok: res.ok, status: res.status, data };
+  } catch (err) {
+    return { ok: false, status: 0, data: { message: 'Cannot connect to server. Make sure Visual Studio is running.' } };
+  }
+}
+
+// ══ TOAST ═════════════════════════════════════════════════════════════════════
+function showToast(msg, type = '') {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast show' + (type ? ' ' + type : '');
+  setTimeout(() => t.className = 'toast', 3000);
+}
+
+// ══ NAVIGATION ════════════════════════════════════════════════════════════════
+function showPage(p) {
+  // Stop admin chat polling when leaving that page
+  if (document.getElementById('page-adminchat')?.classList.contains('active') && p !== 'adminchat') {
+    clearInterval(adminChatPollTimer);
+    adminChatPollTimer = null;
+  }
+  document.querySelectorAll('.page').forEach(x => x.classList.remove('active'));
+  const el = document.getElementById('page-' + p);
+  if (el) el.classList.add('active');
+  if (p === 'user') loadUserRequests();
+  if (p === 'admin') loadAdminRequests();
+  if (p === 'profile') loadProfile();
+  if (p === 'chat') { loadChatMessages(); startChatPolling(); }
+  if (p === 'adminchat') {
+    loadConversations();
+    clearInterval(adminChatPollTimer);
+    adminChatPollTimer = setInterval(async () => {
+      await loadConversations();
+      if (selectedChatUserId) await loadAdminChatMessages();
+    }, 3000);
+  }
+}
+
+function updateNav() {
+  const links = document.getElementById('navLinks');
+  const userEl = document.getElementById('navUser');
+  if (currentUser) {
+    links.style.display = 'none';
+    userEl.style.display = 'flex';
+    document.getElementById('userName').textContent = currentUser.fullName;
+    document.getElementById('userAvatar').textContent = currentUser.fullName.split(' ').map(x => x[0]).join('').toUpperCase().slice(0,2);
+    const nl2 = document.getElementById('navLinks2');
+    nl2.innerHTML = currentUser.role === 'Admin'
+      ? `<button class="nav-btn" onclick="showPage('admin')">Dashboard</button><button class="nav-btn" onclick="showPage('clients');loadClients()">Clients</button><button class="nav-btn" id="navAdminChat" onclick="showPage('adminchat')">Messages <span id="adminUnreadBadge" style="display:none;background:var(--danger);color:#fff;border-radius:999px;padding:1px 6px;font-size:11px;margin-left:3px"></span></button>`
+      : `<button class="nav-btn" onclick="showPage('user')">My Requests</button><button class="nav-btn" onclick="showPage('chat')">Chat <span id="userUnreadBadge" style="display:none;background:var(--danger);color:#fff;border-radius:999px;padding:1px 6px;font-size:11px;margin-left:3px"></span></button><button class="nav-btn" onclick="showPage('profile')">Profile</button>`;
+  } else {
+    links.style.display = 'flex';
+    userEl.style.display = 'none';
+  }
+}
+
+function logout() {
+  currentUser = null; authToken = null;
+  localStorage.removeItem('wb_token');
+  localStorage.removeItem('wb_user');
+  updateNav(); showPage('home');
+  showToast('Logged out successfully');
+}
+
+// ══ AUTH ═══════════════════════════════════════════════════════════════════════
+async function doLogin() {
+  const email = document.getElementById('loginEmail').value.trim();
+  const pass = document.getElementById('loginPassword').value;
+  const errEl = document.getElementById('loginError');
+  const btn = document.getElementById('loginBtn');
+  if (!email || !pass) { errEl.textContent = 'Please enter email and password'; errEl.classList.add('show'); return; }
+  btn.innerHTML = '<span class="spinner"></span>Logging in...'; btn.disabled = true;
+  const res = await api('POST', '/Auth/login', { email, password: pass }, false);
+  btn.innerHTML = 'Log in'; btn.disabled = false;
+  if (!res.ok) { errEl.textContent = res.data.message || 'Invalid email or password'; errEl.classList.add('show'); return; }
+  errEl.classList.remove('show');
+  authToken = res.data.token;
+  currentUser = { fullName: res.data.fullName, email: res.data.email, role: res.data.role, userId: res.data.userId, createdAt: res.data.createdAt };
+  localStorage.setItem('wb_token', authToken);
+  localStorage.setItem('wb_user', JSON.stringify(currentUser));
+  updateNav();
+  startUnreadPolling();
+  showToast(`Welcome back, ${currentUser.fullName}!`, 'success');
+  showPage(currentUser.role === 'Admin' ? 'admin' : 'user');
+}
+
+async function doRegister() {
+  const first = document.getElementById('regFirst').value.trim();
+  const last = document.getElementById('regLast').value.trim();
+  const email = document.getElementById('regEmail').value.trim();
+  const pass = document.getElementById('regPass').value;
+  const pass2 = document.getElementById('regPass2').value;
+  const errEl = document.getElementById('regError');
+  const btn = document.getElementById('regBtn');
+  errEl.classList.remove('show');
+  if (!first || !last || !email || !pass) { errEl.textContent = 'Please fill in all fields'; errEl.classList.add('show'); return; }
+  if (pass !== pass2) { errEl.textContent = 'Passwords do not match'; errEl.classList.add('show'); return; }
+  if (pass.length < 8) { errEl.textContent = 'Password must be at least 8 characters'; errEl.classList.add('show'); return; }
+  btn.innerHTML = '<span class="spinner"></span>Creating account...'; btn.disabled = true;
+  const res = await api('POST', '/Auth/register', { fullName: `${first} ${last}`, email, password: pass }, false);
+  btn.innerHTML = 'Create account'; btn.disabled = false;
+  if (!res.ok) { errEl.textContent = res.data.message || 'Registration failed'; errEl.classList.add('show'); return; }
+  showToast('Account created! Please log in.', 'success');
+  document.getElementById('loginEmail').value = email;
+  showPage('login');
+}
+
+// ══ USER REQUESTS ══════════════════════════════════════════════════════════════
+async function loadUserRequests() {
+  const list = document.getElementById('userReqList');
+  list.innerHTML = '<div class="empty"><div class="empty-icon">⏳</div><div class="empty-title">Loading your requests...</div></div>';
+  const res = await api('GET', '/Requests');
+  if (!res.ok) { list.innerHTML = '<div class="empty"><div class="empty-icon">⚠️</div><div class="empty-title">Could not load requests</div><div class="empty-sub">' + (res.data.message || '') + '</div></div>'; return; }
+  let reqs = res.data;
+  if (currentFilter !== 'all') reqs = reqs.filter(r => r.status === currentFilter);
+  if (!reqs.length) {
+    list.innerHTML = '<div class="empty"><div class="empty-icon">📭</div><div class="empty-title">No requests yet</div><div class="empty-sub">Click "+ New Request" to get started</div></div>';
+    return;
+  }
+  list.innerHTML = reqs.map(r => `
+    <div class="req-card" onclick="viewUserRequest(${r.id})">
+      <div style="flex:1">
+        <div class="req-title">${r.title}</div>
+        <div class="req-meta">${r.category} · Due ${formatDate(r.deadline)} · Submitted ${formatDate(r.createdAt)}</div>
+        ${r.price ? `<div style="font-size:12px;color:var(--gray-500);margin-top:4px">Price: <strong style="color:var(--black)">$${r.price}</strong></div>` : ''}
+      </div>
+      <div class="req-actions">
+        ${statusBadge(r.status)}
+        ${(r.status === 'Completed' || r.status === 'AwaitingPayment') && !r.isPaid ? `<button class="btn btn-sm btn-primary" onclick="event.stopPropagation();payForRequest(${r.id},${r.price})">Pay & Download</button>` : ''}
+        ${r.status === 'ReceiptSubmitted' ? `<span style="font-size:11.5px;color:var(--warn);font-weight:500">⏳ Verifying</span>` : ''}
+        ${(r.isPaid || r.status === 'PaymentVerified' || r.status === 'Delivered') ? `<button class="btn btn-sm btn-success" onclick="event.stopPropagation();downloadFile(${r.id})">⬇ Download</button>` : ''}
+      </div>
+    </div>
+  `).join('');
+}
+
+function filterReqs(f, btn) {
+  currentFilter = f;
+  document.querySelectorAll('#page-user .tab').forEach(t => t.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  loadUserRequests();
+}
+
+async function viewUserRequest(id) {
+  const res = await api('GET', `/Requests/${id}`);
+  if (!res.ok) { showToast('Could not load request', 'error'); return; }
+  const r = res.data;
+  const statusSteps = ['Pending','Accepted','Completed','Delivered'];
+  const declined = r.status === 'Declined';
+  const si = statusSteps.indexOf(r.status);
+  const stepsHTML = statusSteps.map((s, i) => `
+    <div class="step ${declined && i===0 ? 'done' : i < si ? 'done' : i === si ? 'active' : ''}">
+      <div class="step-dot"></div>
+      <div class="step-label">${s}</div>
+    </div>
+  `).join('');
+  document.getElementById('modalTitle').textContent = r.title;
+  document.getElementById('modalBody').innerHTML = `
+    ${declined ? `<div style="background:var(--danger-bg);border-radius:10px;padding:.9rem 1rem;font-size:13.5px;color:var(--danger);margin-bottom:1rem"><strong>Request Declined:</strong> ${r.declineReason || 'No reason provided.'}</div>` : `<div class="steps">${stepsHTML}</div>`}
+    <div class="divider"></div>
+    <div class="info-grid">
+      <div class="info-item"><span>Category</span><span>${r.category}</span></div>
+      <div class="info-item"><span>Deadline</span><span>${formatDate(r.deadline)}</span></div>
+      <div class="info-item"><span>Status</span><span>${statusBadge(r.status)}</span></div>
+      <div class="info-item"><span>Price</span><span>${r.price ? '$' + r.price : 'Pending review'}</span></div>
+    </div>
+    <div style="font-size:13.5px;margin-bottom:1.25rem">
+      <div style="font-size:10.5px;color:var(--gray-400);font-weight:600;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px">Description</div>
+      <div style="background:var(--gray-50);padding:.9rem 1rem;border-radius:10px;line-height:1.7;border:1px solid var(--gray-200)">${r.description}</div>
+    </div>
+    ${r.files && r.files.length > 0 ? `
+      <div style="font-size:13.5px;margin-bottom:1.25rem">
+        <div style="font-size:10.5px;color:var(--gray-400);font-weight:600;text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px">Attached Files</div>
+        ${r.files.map(f => `
+          <div style="display:flex;align-items:center;gap:8px;padding:9px 11px;background:var(--gray-50);border:1px solid var(--gray-200);border-radius:9px;margin-bottom:5px;font-size:13px">
+            <span>${f.uploadedBy === 'Admin' ? '✅' : '📄'}</span>
+            <span style="flex:1;font-weight:500">${f.fileName}</span>
+            <span style="color:var(--gray-400);font-size:11px;background:var(--gray-200);padding:2px 7px;border-radius:10px">${f.uploadedBy}</span>
+            ${(f.uploadedBy === 'Admin' && (r.isPaid || r.status === 'PaymentVerified' || r.status === 'Delivered')) || f.uploadedBy === 'User' ?
+              `<button class="btn btn-sm" onclick="downloadSingleFile(${f.id})">⬇</button>` :
+              f.uploadedBy === 'Admin' ? '<span style="font-size:11px;color:var(--warn)">🔒 Pay to unlock</span>' : ''}
+          </div>
+        `).join('')}
+      </div>
+    ` : ''}
+    ${(r.status === 'Completed' || r.status === 'AwaitingPayment') && !r.isPaid ? `<button class="btn btn-primary" style="width:100%;justify-content:center" onclick="payForRequest(${r.id},${r.price})">Pay $${r.price} & Unlock Download</button>` : ''}
+    ${r.status === 'ReceiptSubmitted' ? `<div style="background:var(--warn-bg);border:1px solid rgba(180,83,9,0.15);border-radius:12px;padding:1rem 1.25rem;text-align:center;font-size:13.5px;color:var(--warn)"><strong>⏳ Receipt Submitted</strong><div style="margin-top:5px;font-size:12.5px;color:var(--gray-500)">Admin is reviewing your receipt. You'll be notified once approved.</div></div>` : ''}
+    ${r.isPaid || r.status === 'PaymentVerified' || r.status === 'Delivered' ? `<button class="btn btn-success" style="width:100%;justify-content:center" onclick="downloadFile(${r.id})">⬇ Download Completed Work</button>` : ''}
+  `;
+  document.getElementById('reqModal').style.display = 'flex';
+}
+
+function openNewRequest() {
+  document.getElementById('modalTitle').textContent = 'New Service Request';
+  document.getElementById('modalBody').innerHTML = `
+    <div class="form-group">
+      <label>Category</label>
+      <select id="nrCat">
+        <option>Assignment Help</option>
+        <option>Web Development</option>
+        <option>Other</option>
+      </select>
+    </div>
+    <div class="form-group"><label>Title</label><input type="text" id="nrTitle" placeholder="Brief title of your request"></div>
+    <div class="form-group"><label>Description</label><textarea id="nrDesc" placeholder="Describe exactly what you need in detail..."></textarea></div>
+    <div class="form-row">
+      <div class="form-group"><label>Deadline</label><input type="date" id="nrDeadline"></div>
+      <div class="form-group"><label>Budget hint (optional)</label><input type="text" id="nrBudget" placeholder="e.g. $50"></div>
+    </div>
+    <div class="form-group">
+      <label>Attach files (optional)</label>
+      <div class="upload-area" onclick="document.getElementById('userFileInput').click()" id="userUploadArea">
+        📎 Click to attach your assignment files (PDF, DOC, images, ZIP...)
+        <input type="file" id="userFileInput" style="display:none" multiple onchange="previewUserFiles(this)">
+      </div>
+      <div id="userFileList" style="margin-top:8px;font-size:13px;color:var(--gray-500)"></div>
+    </div>
+    <div id="nrError" class="form-error"></div>
+    <div style="display:flex;gap:8px;margin-top:1rem">
+      <button class="btn btn-primary" id="submitReqBtn" style="flex:1;justify-content:center" onclick="submitRequest()">Submit Request</button>
+      <button class="btn" onclick="closeModal()">Cancel</button>
+    </div>
+  `;
+  document.getElementById('reqModal').style.display = 'flex';
+}
+
+function previewUserFiles(input) {
+  const fileList = document.getElementById('userFileList');
+  const area = document.getElementById('userUploadArea');
+  if (!input.files.length) return;
+  const names = Array.from(input.files).map(f =>
+    `<div style="display:flex;align-items:center;gap:6px;padding:6px 0;border-bottom:1px solid var(--gray-100)">
+      <span>📄</span>
+      <span style="font-weight:500">${f.name}</span>
+      <span style="color:var(--gray-400);margin-left:auto;font-size:12px">${(f.size/1024).toFixed(0)} KB</span>
+    </div>`
+  ).join('');
+  fileList.innerHTML = names;
+  area.style.borderColor = 'var(--black)';
+  area.style.background = 'var(--gray-50)';
+}
+
+async function submitRequest() {
+  const title = document.getElementById('nrTitle').value.trim();
+  const desc = document.getElementById('nrDesc').value.trim();
+  const cat = document.getElementById('nrCat').value;
+  const deadline = document.getElementById('nrDeadline').value;
+  const budget = document.getElementById('nrBudget').value;
+  const errEl = document.getElementById('nrError');
+  const btn = document.getElementById('submitReqBtn');
+  const fileInput = document.getElementById('userFileInput');
+  if (!title || !desc || !deadline) { errEl.textContent = 'Please fill in title, description and deadline'; errEl.classList.add('show'); return; }
+  btn.innerHTML = '<span class="spinner"></span>Submitting...'; btn.disabled = true;
+  const res = await api('POST', '/Requests', { category: cat, title, description: desc, deadline, budget });
+  if (!res.ok) {
+    btn.innerHTML = 'Submit Request'; btn.disabled = false;
+    errEl.textContent = res.data.message || 'Failed to submit request'; errEl.classList.add('show'); return;
+  }
+  const requestId = res.data.id;
+  if (fileInput && fileInput.files.length > 0) {
+    btn.innerHTML = '<span class="spinner"></span>Uploading files...';
+    for (const file of fileInput.files) {
+      const formData = new FormData();
+      formData.append('file', file);
+      try { await fetch(`${API}/Files/upload/${requestId}`, { method: 'POST', headers: { 'Authorization': `Bearer ${authToken}` }, body: formData }); }
+      catch(e) { console.error('File upload error:', e); }
+    }
+  }
+  btn.innerHTML = 'Submit Request'; btn.disabled = false;
+  closeModal(); loadUserRequests();
+  showToast('Request submitted successfully!', 'success');
+}
+
+async function payForRequest(id, amount) { showPaymentModal(id, amount); }
+
+async function showPaymentModal(requestId, amount) {
+  document.getElementById('modalTitle').textContent = 'Pay & Download';
+  document.getElementById('modalBody').innerHTML = `
+    <div style="padding:.25rem 0">
+      <div style="text-align:center;margin-bottom:1.75rem">
+        <div style="font-size:12px;color:var(--gray-400);font-weight:600;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.4rem">Amount Due</div>
+        <div style="font-family:'Instrument Serif',serif;font-size:40px;color:var(--black);letter-spacing:-1px">$${amount}</div>
+      </div>
+      <div style="background:var(--gray-50);border:1px solid var(--gray-200);border-radius:14px;padding:1.25rem 1.4rem;margin-bottom:1.5rem">
+        <div style="font-weight:600;font-size:13px;margin-bottom:1rem;color:var(--black);letter-spacing:-.01em">① Transfer to this account</div>
+        <div style="font-size:13.5px;display:grid;gap:.55rem">
+          <div style="display:flex;justify-content:space-between"><span style="color:var(--gray-500)">Bank</span><strong>Peoples Bank</strong></div>
+          <div style="display:flex;justify-content:space-between"><span style="color:var(--gray-500)">Account Name</span><strong>WorkBridge Services</strong></div>
+          <div style="display:flex;justify-content:space-between"><span style="color:var(--gray-500)">Account No.</span><strong style="font-family:monospace;letter-spacing:1px;font-size:13px">002-1-002-9-0041</strong></div>
+          <div style="display:flex;justify-content:space-between"><span style="color:var(--gray-500)">Branch</span><strong>Colombo 03</strong></div>
+          <div style="height:1px;background:var(--gray-200);margin:.2rem 0"></div>
+          <div style="display:flex;justify-content:space-between"><span style="color:var(--gray-500)">Amount</span><strong style="font-size:15px">$${amount}</strong></div>
+        </div>
+      </div>
+      <div style="margin-bottom:1.25rem">
+        <div style="font-weight:600;font-size:13px;margin-bottom:.6rem;letter-spacing:-.01em">② Upload your payment receipt</div>
+        <div style="font-size:12.5px;color:var(--gray-500);margin-bottom:.85rem">Take a screenshot of your bank transfer and upload it below.</div>
+        <label for="receiptFile" style="display:block">
+          <div id="receiptDropzone" class="upload-area">📎 Click to attach receipt (JPG, PNG, PDF)</div>
+        </label>
+        <input type="file" id="receiptFile" accept=".jpg,.jpeg,.png,.pdf,.webp,.heic" style="display:none" onchange="previewReceipt(this)">
+        <div id="receiptPreview" style="margin-top:.6rem;display:none">
+          <div style="display:flex;align-items:center;gap:8px;padding:9px 11px;background:var(--gray-50);border:1px solid var(--gray-200);border-radius:9px;font-size:13px">
+            <span>📄</span>
+            <span id="receiptName" style="flex:1;font-weight:500"></span>
+            <button style="background:none;border:none;color:var(--gray-400);cursor:pointer;font-size:16px;line-height:1" onclick="clearReceipt()">✕</button>
+          </div>
+        </div>
+      </div>
+      <div id="payError" class="form-error" style="margin-bottom:.75rem"></div>
+      <button class="btn btn-primary" id="submitReceiptBtn" style="width:100%;justify-content:center;margin-bottom:.6rem;padding:11px" onclick="submitReceipt(${requestId})">
+        Submit Receipt for Verification
+      </button>
+      <button class="btn" style="width:100%;justify-content:center" onclick="closeModal()">Cancel</button>
+      <div style="font-size:12px;color:var(--gray-400);margin-top:1rem;text-align:center;line-height:1.6">
+        After submitting, admin will verify your payment.<br>You'll be notified when your files are unlocked.
+      </div>
+    </div>
+  `;
+  document.getElementById('reqModal').style.display = 'flex';
+}
+
+function previewReceipt(input) {
+  const file = input.files[0]; if (!file) return;
+  document.getElementById('receiptName').textContent = file.name;
+  document.getElementById('receiptPreview').style.display = 'block';
+  document.getElementById('receiptDropzone').innerHTML = '✅ Receipt selected — ready to submit';
+  document.getElementById('receiptDropzone').style.borderColor = 'var(--black)';
+}
+
+function clearReceipt() {
+  document.getElementById('receiptFile').value = '';
+  document.getElementById('receiptPreview').style.display = 'none';
+  document.getElementById('receiptDropzone').innerHTML = '📎 Click to attach receipt (JPG, PNG, PDF)';
+  document.getElementById('receiptDropzone').style.borderColor = '';
+}
+
+async function submitReceipt(requestId) {
+  const fileInput = document.getElementById('receiptFile');
+  const errEl = document.getElementById('payError');
+  if (!fileInput.files || !fileInput.files[0]) {
+    if (errEl) { errEl.textContent = 'Please select your payment receipt file first.'; errEl.classList.add('show'); } return;
+  }
+  const btn = document.getElementById('submitReceiptBtn');
+  btn.innerHTML = '<span class="spinner"></span>Uploading receipt...'; btn.disabled = true;
+  const formData = new FormData();
+  formData.append('file', fileInput.files[0]);
+  try {
+    const response = await fetch(`${API}/Files/receipt/${requestId}`, {
+      method: 'POST', headers: { 'Authorization': `Bearer ${authToken}` }, body: formData
+    });
+    const data = await response.json();
+    if (response.ok) { closeModal(); loadUserRequests(); showToast('Receipt submitted! You will be notified once verified.', 'success'); }
+    else { btn.innerHTML = 'Submit Receipt for Verification'; btn.disabled = false; if (errEl) { errEl.textContent = data.message || 'Upload failed.'; errEl.classList.add('show'); } }
+  } catch { btn.innerHTML = 'Submit Receipt for Verification'; btn.disabled = false; if (errEl) { errEl.textContent = 'Network error. Please try again.'; errEl.classList.add('show'); } }
+}
+
+async function downloadFile(requestId) {
+  const res = await api('GET', `/Requests/${requestId}`);
+  if (!res.ok) { showToast('Could not load request', 'error'); return; }
+  const files = res.data.files || [];
+  const adminFile = files.find(f => f.uploadedBy === 'Admin');
+  if (!adminFile) { showToast('No completed file uploaded yet.', 'error'); return; }
+  try {
+    showToast('Preparing your download...');
+    const response = await fetch(`${API}/Files/download/${adminFile.id}`, { method: 'GET', headers: { 'Authorization': `Bearer ${authToken}` } });
+    if (response.status === 402) { showToast('Payment not yet verified.', 'error'); return; }
+    if (response.status === 401) { showToast('Session expired. Please log in again.', 'error'); return; }
+    if (!response.ok) { showToast('Download failed. Try again.', 'error'); return; }
+    const blob = await response.blob();
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = adminFile.fileName || 'completed_work';
+    document.body.appendChild(a); a.click();
+    window.URL.revokeObjectURL(url); document.body.removeChild(a);
+    showToast('Download started!', 'success');
+  } catch { showToast('Download failed.', 'error'); }
+}
+
+// ══ ADMIN ══════════════════════════════════════════════════════════════════════
+async function loadAdminRequests() {
+  const filter = document.getElementById('adminFilter')?.value || '';
+  const tbody = document.getElementById('adminTableBody');
+  if (tbody) tbody.innerHTML = '<tr class="loading-row"><td colspan="6">Loading...</td></tr>';
+  const res = await api('GET', `/Requests/admin/all${filter ? '?status=' + filter : ''}`);
+  if (!res.ok) { showToast('Could not load requests', 'error'); return; }
+  const reqs = res.data;
+  document.getElementById('adminStats').innerHTML = [
+    { label: 'Total', val: reqs.length },
+    { label: 'Pending', val: reqs.filter(r => r.status === 'Pending').length },
+    { label: 'In Progress', val: reqs.filter(r => r.status === 'Accepted').length },
+    { label: 'Completed', val: reqs.filter(r => ['Completed','Delivered'].includes(r.status)).length },
+    { label: 'Pending Verify', val: reqs.filter(r => r.status === 'ReceiptSubmitted').length }
+  ].map(s => `<div class="stat-card"><div class="stat-num">${s.val}</div><div class="stat-label">${s.label}</div></div>`).join('');
+  if (!reqs.length) { tbody.innerHTML = '<tr class="loading-row"><td colspan="6">No requests found.</td></tr>'; return; }
+  tbody.innerHTML = reqs.map(r => `
+    <tr>
+      <td data-label="Title"><div style="font-weight:500;letter-spacing:-.01em">${r.title}</div></td>
+      <td data-label="Client" style="color:var(--gray-500);font-size:12.5px">${r.userName || '—'}</td>
+      <td data-label="Category" style="font-size:12.5px;color:var(--gray-600)">${r.category}</td>
+      <td data-label="Deadline" style="font-size:12.5px;color:var(--gray-600)">${formatDate(r.deadline)}</td>
+      <td data-label="Status">${statusBadge(r.status)}</td>
+      <td data-label="Actions">
+        <div style="display:flex;gap:4px;flex-wrap:wrap">
+          <button class="btn btn-sm" onclick="adminViewRequest(${r.id})">View</button>
+          ${r.status === 'Pending' ? `<button class="btn btn-sm btn-success" onclick="adminAction(${r.id},'Accepted')">Accept</button><button class="btn btn-sm btn-danger" onclick="adminViewRequest(${r.id})">Decline…</button>` : ''}
+          ${r.status === 'Accepted' ? `<button class="btn btn-sm btn-primary" onclick="adminAction(${r.id},'Completed')">Mark Done</button>` : ''}
+          ${r.status === 'ReceiptSubmitted' ? `<button class="btn btn-sm btn-success" onclick="adminApprovePayment(${r.id})">✅ Approve</button>` : ''}
+        </div>
+      </td>
+    </tr>
+  `).join('');
+}
+
+async function adminViewRequest(id) {
+  const res = await api('GET', `/Requests/${id}`);
+  if (!res.ok) { showToast('Could not load request', 'error'); return; }
+  const r = res.data;
+  document.getElementById('modalTitle').textContent = r.title;
+  document.getElementById('modalBody').innerHTML = `
+    <div class="info-grid">
+      <div class="info-item"><span>Client</span><span>${r.userName || '—'}</span></div>
+      <div class="info-item"><span>Category</span><span>${r.category}</span></div>
+      <div class="info-item"><span>Deadline</span><span>${formatDate(r.deadline)}</span></div>
+      <div class="info-item"><span>Status</span><span>${statusBadge(r.status)}</span></div>
+      <div class="info-item"><span>Budget hint</span><span>${r.budget || '—'}</span></div>
+      <div class="info-item"><span>Price set</span><span>${r.price ? '$' + r.price : 'Not set'}</span></div>
+    </div>
+    <div style="font-size:13.5px;margin-bottom:1.25rem">
+      <div style="font-size:10.5px;color:var(--gray-400);font-weight:600;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px">Description</div>
+      <div style="background:var(--gray-50);padding:.9rem 1rem;border-radius:10px;line-height:1.7;border:1px solid var(--gray-200)">${r.description}</div>
+    </div>
+    ${r.files && r.files.length > 0 ? `
+      <div style="margin-bottom:1.25rem">
+        <div style="font-size:10.5px;color:var(--gray-400);font-weight:600;text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px">Files (${r.files.length})</div>
+        ${r.files.map(f => `
+          <div style="display:flex;align-items:center;gap:8px;padding:9px 11px;background:var(--gray-50);border:1px solid var(--gray-200);border-radius:9px;margin-bottom:5px;font-size:13px">
+            <span>${f.uploadedBy === 'Admin' ? '✅' : '📄'}</span>
+            <span style="flex:1;font-weight:500">${f.fileName}</span>
+            <span style="color:var(--gray-400);font-size:11px;background:var(--gray-200);padding:2px 7px;border-radius:10px">${f.uploadedBy}</span>
+            <button class="btn btn-sm" onclick="adminDownloadFile(${f.id})">⬇</button>
+          </div>
+        `).join('')}
+      </div>
+    ` : `<div style="font-size:13px;color:var(--gray-400);margin-bottom:1rem;padding:.75rem;background:var(--gray-50);border-radius:9px;border:1px solid var(--gray-200)">No files attached yet.</div>`}
+    ${r.status === 'Pending' ? `
+      <div class="form-group"><label>Set price ($)</label><input type="number" id="adminPrice" placeholder="e.g. 50" value="${r.price || ''}"></div>
+      <div class="form-group" id="declineReasonWrap" style="display:none">
+        <label>Decline reason <span style="color:var(--danger)">*</span></label>
+        <textarea id="adminDeclineReason" rows="3" placeholder="Explain why you're declining this request…" style="resize:vertical"></textarea>
+      </div>
+      <div style="display:flex;gap:8px">
+        <button class="btn btn-success" style="flex:1;justify-content:center" onclick="adminAction(${r.id},'Accepted')">Accept Request</button>
+        <button class="btn btn-danger" style="flex:1;justify-content:center" id="declineBtn" onclick="toggleDeclineReason(${r.id})">Decline</button>
+      </div>
+    ` : ''}
+    ${r.status === 'Accepted' ? `
+      <div style="font-size:10.5px;color:var(--gray-400);font-weight:600;text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px">Upload Completed Work</div>
+      <div class="upload-area" onclick="document.getElementById('adminFileInput').click()" style="margin-bottom:.75rem">
+        📎 Click to upload completed work files
+        <input type="file" id="adminFileInput" style="display:none" multiple onchange="adminUploadFile(${r.id},this)">
+      </div>
+      <button class="btn btn-primary" style="width:100%;justify-content:center" onclick="adminAction(${r.id},'Completed')">Mark as Completed & Notify Client</button>
+    ` : ''}
+    ${r.status === 'ReceiptSubmitted' ? `
+      <div style="background:var(--warn-bg);border:1px solid rgba(180,83,9,0.15);border-radius:12px;padding:1.1rem 1.25rem;margin-bottom:1rem">
+        <div style="font-weight:600;font-size:13px;margin-bottom:.6rem;color:var(--warn)">⏳ Receipt Submitted — Awaiting Verification</div>
+        <div style="font-size:12.5px;color:var(--gray-500);margin-bottom:.85rem">Review the receipt and approve or reject below.</div>
+        <button class="btn btn-sm" style="font-size:12.5px" onclick="adminViewReceipt(${r.id})">👁 View Receipt</button>
+      </div>
+      <div style="display:flex;gap:8px">
+        <button class="btn btn-success" style="flex:1;justify-content:center;font-weight:600" onclick="adminApprovePayment(${r.id})">✅ Approve Payment</button>
+        <button class="btn btn-danger" style="flex:1;justify-content:center" onclick="adminRejectPayment(${r.id})">✕ Reject</button>
+      </div>
+    ` : ''}
+    ${r.status === 'PaymentVerified' || r.status === 'Delivered' ? `
+      <div style="background:var(--success-bg);border:1px solid rgba(6,95,70,0.15);border-radius:10px;padding:.9rem 1.1rem;font-size:13.5px;color:var(--success);text-align:center;font-weight:500">
+        ✅ Payment Verified — Client can download their files
+      </div>
+    ` : ''}
+  `;
+  document.getElementById('reqModal').style.display = 'flex';
+}
+
+async function adminAction(id, status) {
+  const priceEl = document.getElementById('adminPrice');
+  const price = priceEl ? parseFloat(priceEl.value) || null : null;
+  const body = { status };
+  if (price) body.price = price;
+  if (status === 'Declined') {
+    const reasonEl = document.getElementById('adminDeclineReason');
+    const reason = reasonEl ? reasonEl.value.trim() : '';
+    if (!reason) { showToast('Please enter a decline reason.', 'error'); return; }
+    body.declineReason = reason;
+  }
+  const res = await api('PATCH', `/Requests/${id}/status`, body);
+  if (!res.ok) { showToast(res.data.message || 'Action failed', 'error'); return; }
+  closeModal(); loadAdminRequests();
+  showToast(`Request ${status.toLowerCase()} successfully!`, 'success');
+}
+
+function toggleDeclineReason(id) {
+  const wrap = document.getElementById('declineReasonWrap');
+  const btn  = document.getElementById('declineBtn');
+  if (wrap.style.display === 'none') {
+    wrap.style.display = 'block';
+    btn.textContent = 'Confirm Decline';
+    btn.onclick = () => adminAction(id, 'Declined');
+  } else {
+    adminAction(id, 'Declined');
+  }
+}
+
+async function adminUploadFile(requestId, input) {
+  const file = input.files[0]; if (!file) return;
+  const formData = new FormData();
+  formData.append('file', file);
+  try {
+    const res = await fetch(`${API}/Files/upload/${requestId}`, { method: 'POST', headers: { 'Authorization': `Bearer ${authToken}` }, body: formData });
+    const data = await res.json();
+    if (res.ok) showToast('File uploaded successfully!', 'success');
+    else showToast(data.message || 'Upload failed', 'error');
+  } catch { showToast('Upload failed — check connection', 'error'); }
+}
+
+async function adminApprovePayment(requestId) {
+  if (!confirm('Approve this payment? The client will be notified and can download their files.')) return;
+  const res = await api('POST', `/Payments/approve/${requestId}`);
+  if (!res.ok) { showToast(res.data?.message || 'Approval failed', 'error'); return; }
+  closeModal(); loadAdminRequests();
+  showToast('Payment approved! Client notified and download unlocked.', 'success');
+}
+
+async function adminRejectPayment(requestId) {
+  if (!confirm('Reject this receipt? The request will return to Awaiting Payment status.')) return;
+  const res = await api('PATCH', `/Requests/${requestId}/status`, { status: 'Completed' });
+  if (!res.ok) { showToast(res.data?.message || 'Rejection failed', 'error'); return; }
+  closeModal(); loadAdminRequests();
+  showToast('Receipt rejected. Client must re-submit.', 'success');
+}
+
+async function adminViewReceipt(requestId) {
+  try {
+    showToast('Downloading receipt...');
+    const response = await fetch(`${API}/Payments/receipt/${requestId}`, { method: 'GET', headers: { 'Authorization': `Bearer ${authToken}` } });
+    if (!response.ok) { showToast('Could not load receipt.', 'error'); return; }
+    const blob = await response.blob();
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = `receipt_request_${requestId}`;
+    document.body.appendChild(a); a.click();
+    window.URL.revokeObjectURL(url); document.body.removeChild(a);
+    showToast('Receipt downloaded!', 'success');
+  } catch { showToast('Could not download receipt.', 'error'); }
+}
+
+// ══ HELPERS ════════════════════════════════════════════════════════════════════
+function statusBadge(s) {
+  const map = { Pending:'badge-pending', Accepted:'badge-accepted', Declined:'badge-declined', Completed:'badge-completed', Delivered:'badge-delivered', AwaitingPayment:'badge-awaitingpayment', ReceiptSubmitted:'badge-receiptsubmitted', PaymentVerified:'badge-paymentverified' };
+  return `<span class="badge ${map[s]||''}">${s}</span>`;
+}
+
+function formatDate(d) {
+  if (!d) return '—';
+  return new Date(d).toLocaleDateString('en-US', { month:'short', day:'numeric', year:'numeric' });
+}
+
+function closeModal() { document.getElementById('reqModal').style.display = 'none'; }
+
+async function adminDownloadFile(fileId) {
+  try {
+    const response = await fetch(`${API}/Files/download/${fileId}`, { method: 'GET', headers: { 'Authorization': `Bearer ${authToken}` } });
+    if (!response.ok) { showToast('Download failed.', 'error'); return; }
+    const blob = await response.blob();
+    const cd = response.headers.get('content-disposition');
+    const name = cd ? cd.split('filename=')[1]?.replace(/"/g,'') : 'file';
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = name;
+    document.body.appendChild(a); a.click();
+    window.URL.revokeObjectURL(url); document.body.removeChild(a);
+    showToast('Download started!', 'success');
+  } catch { showToast('Download failed.', 'error'); }
+}
+
+async function downloadSingleFile(fileId) {
+  try {
+    const response = await fetch(`${API}/Files/download/${fileId}`, { method: 'GET', headers: { 'Authorization': `Bearer ${authToken}` } });
+    if (response.status === 402) { showToast('Payment required to download this file.', 'error'); return; }
+    if (!response.ok) { showToast('Download failed.', 'error'); return; }
+    const blob = await response.blob();
+    const cd = response.headers.get('content-disposition');
+    const name = cd ? cd.split('filename=')[1]?.replace(/"/g,'') : 'file';
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = name;
+    document.body.appendChild(a); a.click();
+    window.URL.revokeObjectURL(url); document.body.removeChild(a);
+    showToast('Download started!', 'success');
+  } catch { showToast('Download failed.', 'error'); }
+}
+
+// ══ CLIENTS ═════════════════════════════════════════════════════════════════════
+let allClients = [];
+
+async function loadClients() {
+  const grid = document.getElementById('clientsGrid');
+  if (!grid) return;
+  grid.innerHTML = '<div class="empty"><div class="empty-icon">⏳</div><div class="empty-title">Loading clients...</div></div>';
+
+  // Get all requests to count per user
+  const reqRes = await api('GET', '/Requests/admin/all');
+  const requests = reqRes.ok ? reqRes.data : [];
+
+  // Get all conversations (users who have chatted)
+  const convRes = await api('GET', '/Chat/conversations');
+  const conversations = convRes.ok ? convRes.data : [];
+
+  // Build client list from conversations + requests
+  const clientMap = {};
+
+  // Add users from requests
+  requests.forEach(r => {
+    if (!r.userName) return;
+    const id = r.userEmail;
+    if (!clientMap[id]) {
+      clientMap[id] = {
+        id: id,
+        name: r.userName,
+        email: r.userEmail,
+        requests: [],
+        totalSpent: 0,
+        source: 'requests'
+      };
+    }
+    clientMap[id].requests.push(r);
+    if (r.status === 'PaymentVerified' || r.status === 'Delivered') {
+      clientMap[id].totalSpent += (r.price || 0);
+    }
+  });
+
+  // Add users from conversations
+  conversations.forEach(c => {
+    if (!clientMap[c.email]) {
+      clientMap[c.email] = {
+        id: c.id,
+        name: c.fullName,
+        email: c.email,
+        requests: [],
+        totalSpent: 0,
+        source: 'chat'
+      };
+    }
+    clientMap[c.email].userId = c.id;
+    clientMap[c.email].unreadCount = c.unreadCount;
+  });
+
+  allClients = Object.values(clientMap);
+
+  // Update stats
+  const now = new Date();
+  const thisMonth = allClients.filter(c => {
+    const req = c.requests[0];
+    if (!req) return false;
+    const d = new Date(req.createdAt);
+    return d.getMonth() === now.getMonth() && d.getFullYear() === now.getFullYear();
+  }).length;
+
+  document.getElementById('clientStats').innerHTML = [
+    { label: 'Total Clients', val: allClients.length },
+    { label: 'Active (requests)', val: allClients.filter(c => c.requests.length > 0).length },
+    { label: 'New this month', val: thisMonth }
+  ].map(s => `<div class="stat-card"><div class="stat-num">${s.val}</div><div class="stat-label">${s.label}</div></div>`).join('');
+
+  renderClients(allClients);
+}
+
+function filterClients() {
+  const q = document.getElementById('clientSearch')?.value.toLowerCase() || '';
+  const filtered = allClients.filter(c =>
+    c.name.toLowerCase().includes(q) || c.email.toLowerCase().includes(q)
+  );
+  renderClients(filtered);
+}
+
+function renderClients(clients) {
+  const grid = document.getElementById('clientsGrid');
+  if (!clients.length) {
+    grid.innerHTML = '<div class="empty"><div class="empty-icon">👥</div><div class="empty-title">No clients found</div><div class="empty-sub">Clients appear here when they register or submit requests</div></div>';
+    return;
+  }
+
+  grid.innerHTML = `
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem">
+      ${clients.map(c => {
+        const initials = c.name.split(' ').map(x=>x[0]).join('').toUpperCase().slice(0,2);
+        const pendingCount = c.requests.filter(r => r.status === 'Pending').length;
+        const completedCount = c.requests.filter(r => ['PaymentVerified','Delivered'].includes(r.status)).length;
+        return `
+          <div class="card" style="cursor:pointer;transition:all .18s;padding:1.25rem" onclick="viewClient('${c.email}')" onmouseover="this.style.borderColor='var(--black)';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='var(--gray-200)';this.style.transform='translateY(0)'">
+            <div style="display:flex;align-items:center;gap:.85rem;margin-bottom:1rem">
+              <div style="width:42px;height:42px;border-radius:50%;background:var(--black);color:var(--white);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:600;flex-shrink:0">${initials}</div>
+              <div style="flex:1;min-width:0">
+                <div style="font-weight:600;font-size:14px;letter-spacing:-.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${escHtml(c.name)}</div>
+                <div style="font-size:12px;color:var(--gray-500);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${escHtml(c.email)}</div>
+              </div>
+              ${c.unreadCount > 0 ? `<span style="background:var(--danger);color:#fff;border-radius:999px;padding:2px 8px;font-size:11px;flex-shrink:0">${c.unreadCount} new</span>` : ''}
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:.5rem;text-align:center">
+              <div style="background:var(--gray-50);border:1px solid var(--gray-200);border-radius:8px;padding:.5rem">
+                <div style="font-size:18px;font-weight:700">${c.requests.length}</div>
+                <div style="font-size:10px;color:var(--gray-400);text-transform:uppercase;letter-spacing:.04em">Requests</div>
+              </div>
+              <div style="background:var(--gray-50);border:1px solid var(--gray-200);border-radius:8px;padding:.5rem">
+                <div style="font-size:18px;font-weight:700">${completedCount}</div>
+                <div style="font-size:10px;color:var(--gray-400);text-transform:uppercase;letter-spacing:.04em">Completed</div>
+              </div>
+              <div style="background:var(--gray-50);border:1px solid var(--gray-200);border-radius:8px;padding:.5rem">
+                <div style="font-size:18px;font-weight:700">$${c.totalSpent}</div>
+                <div style="font-size:10px;color:var(--gray-400);text-transform:uppercase;letter-spacing:.04em">Spent</div>
+              </div>
+            </div>
+            ${pendingCount > 0 ? `<div style="margin-top:.75rem;font-size:12px;color:var(--warn);background:var(--warn-bg);padding:4px 10px;border-radius:6px;text-align:center">${pendingCount} pending request${pendingCount>1?'s':''}</div>` : ''}
+          </div>
+        `;
+      }).join('')}
+    </div>
+  `;
+}
+
+function viewClient(email) {
+  const c = allClients.find(x => x.email === email);
+  if (!c) return;
+  const initials = c.name.split(' ').map(x=>x[0]).join('').toUpperCase().slice(0,2);
+  const completedCount = c.requests.filter(r => ['PaymentVerified','Delivered'].includes(r.status)).length;
+  const pendingCount = c.requests.filter(r => r.status === 'Pending').length;
+  const acceptedCount = c.requests.filter(r => r.status === 'Accepted').length;
+
+  document.getElementById('modalTitle').textContent = 'Client Profile';
+  document.getElementById('modalBody').innerHTML = `
+    <!-- Header -->
+    <div style="display:flex;align-items:center;gap:1rem;padding:1rem;background:var(--gray-50);border:1px solid var(--gray-200);border-radius:12px;margin-bottom:1.25rem">
+      <div style="width:52px;height:52px;border-radius:50%;background:var(--black);color:var(--white);display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:600;flex-shrink:0">${initials}</div>
+      <div>
+        <div style="font-size:17px;font-weight:700;letter-spacing:-.02em">${escHtml(c.name)}</div>
+        <div style="font-size:13px;color:var(--gray-500);margin-top:2px">${escHtml(c.email)}</div>
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:.6rem;margin-bottom:1.25rem;text-align:center">
+      <div style="background:var(--gray-50);border:1px solid var(--gray-200);border-radius:10px;padding:.75rem">
+        <div style="font-size:22px;font-weight:700">${c.requests.length}</div>
+        <div style="font-size:10px;color:var(--gray-400);text-transform:uppercase;letter-spacing:.04em;margin-top:2px">Total</div>
+      </div>
+      <div style="background:var(--gray-50);border:1px solid var(--gray-200);border-radius:10px;padding:.75rem">
+        <div style="font-size:22px;font-weight:700">${pendingCount}</div>
+        <div style="font-size:10px;color:var(--gray-400);text-transform:uppercase;letter-spacing:.04em;margin-top:2px">Pending</div>
+      </div>
+      <div style="background:var(--gray-50);border:1px solid var(--gray-200);border-radius:10px;padding:.75rem">
+        <div style="font-size:22px;font-weight:700">${completedCount}</div>
+        <div style="font-size:10px;color:var(--gray-400);text-transform:uppercase;letter-spacing:.04em;margin-top:2px">Done</div>
+      </div>
+      <div style="background:var(--gray-50);border:1px solid var(--gray-200);border-radius:10px;padding:.75rem">
+        <div style="font-size:22px;font-weight:700">$${c.totalSpent}</div>
+        <div style="font-size:10px;color:var(--gray-400);text-transform:uppercase;letter-spacing:.04em;margin-top:2px">Spent</div>
+      </div>
+    </div>
+
+    <!-- Request history -->
+    <div style="font-size:11px;color:var(--gray-400);font-weight:600;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.6rem">Request History</div>
+    ${c.requests.length === 0 ? `<div style="text-align:center;color:var(--gray-400);padding:1.5rem;background:var(--gray-50);border-radius:10px;font-size:13.5px">No requests yet</div>` :
+      c.requests.map(r => `
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:.75rem 1rem;background:var(--gray-50);border:1px solid var(--gray-200);border-radius:10px;margin-bottom:.5rem;cursor:pointer" onclick="closeModal();adminViewRequest(${r.id})">
+          <div>
+            <div style="font-size:13.5px;font-weight:500;letter-spacing:-.01em">${escHtml(r.title)}</div>
+            <div style="font-size:11.5px;color:var(--gray-500);margin-top:2px">${r.category} · ${formatDate(r.deadline)}</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:.6rem">
+            ${r.price ? `<span style="font-size:12px;font-weight:600">$${r.price}</span>` : ''}
+            ${statusBadge(r.status)}
+          </div>
+        </div>
+      `).join('')
+    }
+
+    <!-- Actions -->
+    <div style="display:flex;gap:8px;margin-top:1.25rem">
+      ${c.userId ? `<button class="btn btn-primary" style="flex:1;justify-content:center" onclick="closeModal();startChatWithUser('${c.userId}','${escAttr(c.name)}')">💬 Message ${escHtml(c.name.split(' ')[0])}</button>` : ''}
+      <button class="btn" style="flex:1;justify-content:center" onclick="closeModal()">Close</button>
+    </div>
+  `;
+  document.getElementById('reqModal').style.display = 'flex';
+}
+
+function startChatWithUser(userId, userName) {
+  showPage('adminchat');
+  // Auto-select this user in the chat
+  setTimeout(() => selectConversation(userId, userName), 500);
+}
+
+// ══ RESTORE SESSION ════════════════════════════════════════════════════════════
+const savedToken = localStorage.getItem('wb_token');
+const savedUser = localStorage.getItem('wb_user');
+if (savedToken && savedUser) {
+  authToken = savedToken;
+  currentUser = JSON.parse(savedUser);
+  updateNav();
+  startUnreadPolling();
+}
+
+// ══ PROFILE ══════════════════════════════════════════════════════════════════
+async function loadProfile() {
+  // Sync header from current user immediately
+  if (currentUser) syncProfileHeader(currentUser);
+
+  const res = await api('GET', '/Profile');
+  if (!res.ok) return;
+  const u = res.data;
+
+  // Populate all profile fields
+  document.getElementById('profileName').value  = u.fullName    || '';
+  document.getElementById('profilePhone').value = u.phoneNumber || '';
+  if (document.getElementById('profileEmail'))
+    document.getElementById('profileEmail').value = u.email || currentUser?.email || '';
+
+  // Set account type dropdown to saved value
+  const typeEl = document.getElementById('profileType');
+  if (typeEl && u.accountType) typeEl.value = u.accountType;
+
+  // Sync header with fresh data
+  if (currentUser) {
+    currentUser.fullName = u.fullName || currentUser.fullName;
+    syncProfileHeader(currentUser);
+  }
+
+  // Clear password fields
+  ['profileCurPass','profileNewPass','profileNewPass2'].forEach(id => {
+    const el = document.getElementById(id); if (el) el.value = '';
+  });
+  document.getElementById('profileNameErr').classList.remove('show');
+  document.getElementById('profilePassErr').classList.remove('show');
+
+  // Reset password strength
+  const psWrap = document.getElementById('passStrengthWrap');
+  if (psWrap) psWrap.style.display = 'none';
+}
+
+async function saveProfileName() {
+  const errEl = document.getElementById('profileNameErr');
+  errEl.classList.remove('show');
+
+  const name  = document.getElementById('profileName').value.trim();
+  const phone = document.getElementById('profilePhone').value.trim();
+  const type  = document.getElementById('profileType').value;
+
+  if (!name) { errEl.textContent = 'Name cannot be empty.'; errEl.classList.add('show'); return; }
+
+  const res = await api('PATCH', '/Profile/info', {
+    fullName:    name,
+    phoneNumber: phone || null,
+    accountType: type  || null
+  });
+
+  if (!res.ok) { errEl.textContent = res.data.message || 'Update failed.'; errEl.classList.add('show'); return; }
+
+  // Update stored user and sync UI
+  currentUser.fullName = res.data.fullName;
+  localStorage.setItem('wb_user', JSON.stringify(currentUser));
+  updateNav();
+  syncProfileHeader(currentUser);
+  showToast('Profile updated successfully!', 'success');
+}
+
+async function saveProfilePassword() {
+  const errEl = document.getElementById('profilePassErr');
+  errEl.classList.remove('show');
+  const cur  = document.getElementById('profileCurPass').value;
+  const nw   = document.getElementById('profileNewPass').value;
+  const nw2  = document.getElementById('profileNewPass2').value;
+  if (!cur || !nw || !nw2) { errEl.textContent = 'All fields are required.'; errEl.classList.add('show'); return; }
+  if (nw !== nw2)           { errEl.textContent = 'New passwords do not match.'; errEl.classList.add('show'); return; }
+  if (nw.length < 8)        { errEl.textContent = 'New password must be at least 8 characters.'; errEl.classList.add('show'); return; }
+  const res = await api('PATCH', '/Profile/password', { currentPassword: cur, newPassword: nw });
+  if (!res.ok) { errEl.textContent = res.data.message || 'Password change failed.'; errEl.classList.add('show'); return; }
+  ['profileCurPass','profileNewPass','profileNewPass2'].forEach(id => document.getElementById(id).value = '');
+  showToast('Password changed successfully!', 'success');
+}
+
+// ══ USER CHAT ════════════════════════════════════════════════════════════════
+let chatPollTimer = null;
+
+async function loadChatMessages() {
+  const res = await api('GET', '/Chat/messages');
+  if (!res.ok) return;
+  const myId = currentUser?.userId || '';
+  renderChatMessages(res.data, document.getElementById('chatMessages'), myId);
+}
+
+function renderChatMessages(messages, container, myId) {
+  if (!container) return;
+  const wasAtBottom = container.scrollHeight - container.scrollTop - container.clientHeight < 60;
+  container.innerHTML = messages.length === 0
+    ? `<div style="text-align:center;color:var(--gray-400);font-size:13.5px;margin:auto;padding:2rem 0">No messages yet. Say hello! 👋</div>`
+    : messages.map(m => {
+        // Handle both camelCase (senderId) and PascalCase (SenderId) from API
+        const sid   = m.senderId   || m.SenderId   || '';
+        const sname = m.senderName || m.SenderName || 'Unknown';
+        const body  = m.content    || m.Content    || '';
+        const at    = m.sentAt     || m.SentAt     || new Date();
+        const mine  = sid === myId;
+        const time  = new Date(at).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});
+        return `
+          <div style="display:flex;flex-direction:column;align-items:${mine?'flex-end':'flex-start'};gap:2px">
+            <div style="font-size:11px;color:var(--gray-400);margin-${mine?'right':'left'}:4px">${mine ? 'You' : escHtml(sname)} · ${time}</div>
+            <div style="max-width:75%;padding:.6rem .9rem;border-radius:${mine?'14px 14px 4px 14px':'14px 14px 14px 4px'};font-size:13.5px;line-height:1.55;word-break:break-word;background:${mine?'var(--black)':'var(--gray-100)'};color:${mine?'#fff':'var(--black)'}">
+              ${escHtml(body)}
+            </div>
+          </div>`;
+      }).join('');
+  if (wasAtBottom || messages.length === 0) container.scrollTop = container.scrollHeight;
+}
+
+async function sendChat() {
+  const input = document.getElementById('chatInput');
+  const content = input.value.trim();
+  if (!content) return;
+  input.value = '';
+  const res = await api('POST', '/Chat/send', { content });
+  if (!res.ok) { showToast(res.data?.message || 'Send failed', 'error'); input.value = content; return; }
+  await loadChatMessages();
+}
+
+function startChatPolling() {
+  clearInterval(chatPollTimer);
+  chatPollTimer = setInterval(loadChatMessages, 3000);
+}
+
+// ══ ADMIN CHAT ═══════════════════════════════════════════════════════════════
+let selectedChatUserId = null;
+let adminChatPollTimer = null;
+
+async function loadConversations() {
+  const res = await api('GET', '/Chat/conversations');
+  if (!res.ok) return;
+  const list = document.getElementById('chatConvList');
+  if (!res.data || res.data.length === 0) {
+    list.innerHTML = `<div style="padding:.75rem;font-size:13px;color:var(--gray-400)">No conversations yet.</div>`;
+    return;
+  }
+  list.innerHTML = res.data.map(u => `
+    <div onclick="selectConversation('${u.id}','${escAttr(u.fullName)}')"
+         id="conv-${u.id}"
+         style="padding:.75rem .9rem;border-radius:9px;cursor:pointer;transition:background .15s;display:flex;align-items:center;justify-content:space-between;font-size:13.5px;${selectedChatUserId===u.id?'background:var(--gray-100);font-weight:600':''}">
+      <span>${escHtml(u.fullName)}<div style="font-size:11.5px;color:var(--gray-400);font-weight:400">${escHtml(u.email)}</div></span>
+      ${u.unreadCount > 0 ? `<span style="background:var(--danger);color:#fff;border-radius:999px;padding:1px 7px;font-size:11px;flex-shrink:0">${u.unreadCount}</span>` : ''}
+    </div>
+  `).join('');
+
+  // Refresh messages if a conversation is already selected
+  if (selectedChatUserId) await loadAdminChatMessages();
+}
+
+async function selectConversation(userId, userName) {
+  selectedChatUserId = userId;
+  document.getElementById('adminChatHeader').textContent = userName;
+  document.getElementById('adminChatInput').style.display = 'flex';
+  // highlight selected
+  document.querySelectorAll('#chatConvList > div').forEach(d => d.style.background = '');
+  const sel = document.getElementById('conv-' + userId);
+  if (sel) sel.style.background = 'var(--gray-100)';
+  await loadAdminChatMessages();
+}
+
+async function loadAdminChatMessages() {
+  if (!selectedChatUserId) return;
+  const res = await api('GET', `/Chat/messages?userId=${selectedChatUserId}`);
+  if (!res.ok) return;
+  const myId = currentUser?.userId || '';
+  renderChatMessages(res.data, document.getElementById('adminChatMessages'), myId);
+}
+
+async function sendAdminChat() {
+  if (!selectedChatUserId) return;
+  const input = document.getElementById('adminChatText');
+  const content = input.value.trim();
+  if (!content) return;
+  input.value = '';
+  const res = await api('POST', '/Chat/send', { content, recipientId: selectedChatUserId });
+  if (!res.ok) { showToast(res.data?.message || 'Send failed', 'error'); input.value = content; return; }
+  await loadAdminChatMessages();
+}
+
+// ══ UNREAD BADGE POLLING ════════════════════════════════════════════════════
+function startUnreadPolling() {
+  setInterval(async () => {
+    if (!authToken || !currentUser) return;
+    const res = await api('GET', '/Chat/unread-count');
+    if (!res.ok) return;
+    const count = res.data.count;
+    if (currentUser.role === 'Admin') {
+      const badge = document.getElementById('adminUnreadBadge');
+      if (badge) { badge.textContent = count; badge.style.display = count > 0 ? 'inline' : 'none'; }
+    } else {
+      const badge = document.getElementById('userUnreadBadge');
+      if (badge) { badge.textContent = count; badge.style.display = count > 0 ? 'inline' : 'none'; }
+    }
+  }, 8000);
+}
+
+// ══ HELPERS ═════════════════════════════════════════════════════════════════
+function escHtml(s) { const d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+function escAttr(s) { return s.replace(/'/g, '&#39;').replace(/"/g, '&quot;'); }
+
+// ══ PROFILE PHOTO PREVIEW ════════════════════════════════════════════════════
+function previewProfilePhoto(input) {
+  if (!input.files || !input.files[0]) return;
+  const file = input.files[0];
+  if (!file.type.startsWith('image/')) { showToast('Please select an image file.', 'error'); return; }
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    const src = e.target.result;
+    // Header avatar
+    const headerImg = document.getElementById('profileAvatarImg');
+    const headerInit = document.getElementById('profileAvatarInitials');
+    headerImg.src = src; headerImg.style.display = 'block';
+    headerInit.style.display = 'none';
+    // Sidebar avatar
+    const summaryImg = document.getElementById('profileSummaryImg');
+    const summaryInit = document.getElementById('profileSummaryInitials');
+    summaryImg.src = src; summaryImg.style.display = 'block';
+    summaryInit.style.display = 'none';
+    showToast('Profile photo updated!', 'success');
+  };
+  reader.readAsDataURL(file);
+}
+
+// ══ TOGGLE PASSWORD VISIBILITY ═══════════════════════════════════════════════
+function togglePass(inputId, btn) {
+  const input = document.getElementById(inputId);
+  if (!input) return;
+  const isPass = input.type === 'password';
+  input.type = isPass ? 'text' : 'password';
+  // Swap icon
+  btn.innerHTML = isPass
+    ? `<svg class="eye-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/></svg>`
+    : `<svg class="eye-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>`;
+}
+
+// ══ PASSWORD STRENGTH ════════════════════════════════════════════════════════
+function updatePassStrength(val) {
+  const wrap = document.getElementById('passStrengthWrap');
+  const label = document.getElementById('passStrengthLabel');
+  if (!val) { wrap.style.display = 'none'; return; }
+  wrap.style.display = 'flex';
+  let score = 0;
+  if (val.length >= 8) score++;
+  if (val.length >= 12) score++;
+  if (/[A-Z]/.test(val) && /[a-z]/.test(val)) score++;
+  if (/[0-9]/.test(val) && /[^A-Za-z0-9]/.test(val)) score++;
+  const bars = ['psb1','psb2','psb3','psb4'];
+  const levels = ['weak','fair','good','strong'];
+  const labels = ['Weak','Fair','Good','Strong'];
+  bars.forEach((id, i) => {
+    const el = document.getElementById(id);
+    el.className = 'psb';
+    if (i < score) el.classList.add(levels[score - 1]);
+  });
+  label.textContent = labels[score - 1] || 'Weak';
+  label.style.color = score <= 1 ? 'var(--danger)' : score === 2 ? 'var(--warn)' : score === 3 ? '#059669' : 'var(--black)';
+}
+
+// ══ PROFILE HEADER SYNC ══════════════════════════════════════════════════════
+function syncProfileHeader(user) {
+  if (!user) return;
+  const initials = (user.fullName || '?').split(' ').map(x => x[0]).join('').toUpperCase().slice(0,2);
+  // Header
+  document.getElementById('profileHeaderName').textContent = user.fullName || '—';
+  document.getElementById('profileHeaderEmail').textContent = user.email || '—';
+  document.getElementById('profileRoleBadge').textContent = user.role || 'Member';
+  const year = user.createdAt ? new Date(user.createdAt).getFullYear() : new Date().getFullYear();
+  document.getElementById('profileJoined').textContent = 'Member since ' + year;
+  document.getElementById('profileAvatarInitials').textContent = initials;
+  // Sidebar
+  document.getElementById('profileSummaryName').textContent = user.fullName || '—';
+  document.getElementById('profileSummaryEmail').textContent = user.email || '—';
+  document.getElementById('profileSummaryRole').textContent = user.role || 'Member';
+  document.getElementById('profileSummaryInitials').textContent = initials;
+  document.getElementById('profileSummaryJoined').textContent = 'Joined ' + year;
+  // Pre-fill email field
+  const emailField = document.getElementById('profileEmail');
+  if (emailField) emailField.value = user.email || '';
+}
+</script>
+
+<!-- Vanta Birds Animated Background -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.birds.min.js"></script>
+<script>
+// Initialize Vanta Birds — shared config
+let vantaEffect = null;
+let vantaHomeEffect = null;
+
+const VANTA_CONFIG = {
+  mouseControls: true,
+  touchControls: true,
+  gyroControls: false,
+  minHeight: 200.00,
+  minWidth: 200.00,
+  scale: 1.00,
+  scaleMobile: 1.00,
+  backgroundColor: 0xffffff,
+  color1: 0x0,
+  color2: 0x0,
+  separation: 52.00,
+  backgroundAlpha: 0.79
+};
+
+function initVanta() {
+  if (vantaEffect) { vantaEffect.destroy(); vantaEffect = null; }
+  const el = document.getElementById('profile-vanta-bg');
+  if (!el || typeof VANTA === 'undefined') return;
+  vantaEffect = VANTA.BIRDS({ el, ...VANTA_CONFIG });
+}
+
+function initHomeVanta() {
+  if (vantaHomeEffect) { vantaHomeEffect.destroy(); vantaHomeEffect = null; }
+  const el = document.getElementById('home-vanta-bg');
+  if (!el || typeof VANTA === 'undefined') return;
+  vantaHomeEffect = VANTA.BIRDS({ el, ...VANTA_CONFIG });
+}
+
+// Start home Vanta on initial page load
+window.addEventListener('load', () => { setTimeout(initHomeVanta, 100); });
+
+// Patch showPage to manage Vanta per page
+const _origShowPage = showPage;
+showPage = function(p) {
+  _origShowPage(p);
+  if (p === 'home') {
+    if (vantaEffect) { vantaEffect.destroy(); vantaEffect = null; }
+    setTimeout(initHomeVanta, 80);
+  } else if (p === 'profile') {
+    if (vantaHomeEffect) { vantaHomeEffect.destroy(); vantaHomeEffect = null; }
+    if (currentUser) syncProfileHeader(currentUser);
+    setTimeout(initVanta, 80);
+  } else {
+    // Destroy both when on any other page
+    if (vantaEffect) { vantaEffect.destroy(); vantaEffect = null; }
+    if (vantaHomeEffect) { vantaHomeEffect.destroy(); vantaHomeEffect = null; }
+  }
+};
+</script>
+</body>
+</html>

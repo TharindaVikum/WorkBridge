@@ -1,0 +1,53 @@
+# Visual Studio
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+.vscode/
+
+# Build files
+bin/
+obj/
+
+# Publish output
+publish/
+*.publish.xml
+*.deploy.cmd
+
+# NuGet
+packages/
+*.nupkg
+*.snupkg
+.nuget/
+
+# Node
+node_modules/
+
+# Dependency ecosystems
+vendor/
+
+# Environment and secrets
+.env
+*.env
+secrets.json
+appsettings.*.Local.json
+appsettings.*.Secret.json
+
+# Database backups / local DB files
+*.bak
+*.mdf
+*.ldf
+*.sqlite
+
+# Logs
+*.log
+logs/
+
+# Debug and release folders
+Debug/
+Release/
+
+# General editor files
+*.swp
+*~
